@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,后端," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="文件高级技术常见文件类型日常使用中有一些常用的文件类型，例如：属性文件、CSV、Excel、HTML和压缩包。本节主要介绍一些 API 或三方库来操作这些常用文件。 属性文件属性文件一般比较简单，一行表示一个属性。属性就是键值对，使用&#x3D;或:将键与值分开，一般用于配置程序的一些信息。例如和数据库相关的配置文件db_cfg.properties就可以这样写： 1234db.host &#x3D; 192.168">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 基础系列（08）">
+<meta property="og:url" content="http://example.com/2023/06/08/Java-%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%EF%BC%8808%EF%BC%89/index.html">
+<meta property="og:site_name" content="Luyan&#39;s Bolg">
+<meta property="og:description" content="文件高级技术常见文件类型日常使用中有一些常用的文件类型，例如：属性文件、CSV、Excel、HTML和压缩包。本节主要介绍一些 API 或三方库来操作这些常用文件。 属性文件属性文件一般比较简单，一行表示一个属性。属性就是键值对，使用&#x3D;或:将键与值分开，一般用于配置程序的一些信息。例如和数据库相关的配置文件db_cfg.properties就可以这样写： 1234db.host &#x3D; 192.168">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/1561375/1705738834311-eeaa2fcc-d758-40c3-8e95-efcdd8e262cf.png#averageHue=%233f4347&clientId=u69870eb3-2627-4&from=paste&height=708&id=u012bf14e&originHeight=708&originWidth=982&originalType=binary&ratio=1&rotation=0&showTitle=false&size=98956&status=done&style=none&taskId=u89d1617e-0aba-448c-8882-9a99c528b40&title=&width=982">
+<meta property="article:published_time" content="2023-06-08T04:09:51.000Z">
+<meta property="article:modified_time" content="2024-08-02T04:16:21.101Z">
+<meta property="article:author" content="Lu Yan">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="后端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2024/png/1561375/1705738834311-eeaa2fcc-d758-40c3-8e95-efcdd8e262cf.png#averageHue=%233f4347&clientId=u69870eb3-2627-4&from=paste&height=708&id=u012bf14e&originHeight=708&originWidth=982&originalType=binary&ratio=1&rotation=0&showTitle=false&size=98956&status=done&style=none&taskId=u89d1617e-0aba-448c-8882-9a99c528b40&title=&width=982">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2023/06/08/Java-基础系列（08）/"/>
+
+
+
+
+
+  <title>Java 基础系列（08） | Luyan's Bolg</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Luyan's Bolg</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">不积跬步，无以至千里；不积小流，无以成江海。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/08/Java-%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%EF%BC%8808%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Luyan's Bolg">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java 基础系列（08）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-06-08T12:09:51+08:00">
+                2023-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
+                    <span itemprop="name">基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="文件高级技术"><a href="#文件高级技术" class="headerlink" title="文件高级技术"></a>文件高级技术</h3><h4 id="常见文件类型"><a href="#常见文件类型" class="headerlink" title="常见文件类型"></a>常见文件类型</h4><p>日常使用中有一些常用的文件类型，例如：属性文件、CSV、Excel、HTML和压缩包。本节主要介绍一些 API 或三方库来操作这些常用文件。</p>
+<h5 id="属性文件"><a href="#属性文件" class="headerlink" title="属性文件"></a>属性文件</h5><p>属性文件一般比较简单，一行表示一个属性。属性就是键值对，使用<code>=</code>或<code>:</code>将键与值分开，一般用于配置程序的一些信息。例如和数据库相关的配置文件<code>db_cfg.properties</code>就可以这样写：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">db.host = <span class="number">192.168</span><span class="number">.10</span><span class="number">.100</span></span><br><span class="line">db.port : <span class="number">3306</span></span><br><span class="line">db.username = zhangsan</span><br><span class="line">db.password = mima1234</span><br></pre></td></tr></table></figure>
+<p>我们可以使用字符流解析字符串，但是比较麻烦。Java 有专门的类<code>java.util.Properties</code>做这个事，它有如下主要方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">load</span><span class="params">(InputStream inStream)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">getProperty</span><span class="params">(String key)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">getProperty</span><span class="params">(String key, String defaultValue)</span></span><br></pre></td></tr></table></figure>
+<p><code>load</code>方法用于加载属性文件，<code>getProperty</code>方法可以根据键获取对应的值，还可以传递<code>defaultValue</code>作为找不到键时的默认值。<br>例如读取上面定义的数据库配置文件可以：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Properties</span> <span class="variable">prop</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line">prop.load(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;config.properties&quot;</span>));  <span class="comment">// 加载配置文件</span></span><br><span class="line"><span class="type">String</span> <span class="variable">host</span> <span class="operator">=</span> prop.getProperty(<span class="string">&quot;db.host&quot;</span>);  <span class="comment">// 读到的都是字符串</span></span><br><span class="line"><span class="type">int</span> <span class="variable">port</span> <span class="operator">=</span> Integer.valueOf(prop.getProperty(<span class="string">&quot;db.port&quot;</span>, <span class="string">&quot;3306&quot;</span>));</span><br></pre></td></tr></table></figure>
+<p>使用<code>Properties</code>类处理配置文件有以下好处：</p>
+<ol>
+<li>它可以自动处理分隔符前后的空格</li>
+<li>它可以自动忽略空行</li>
+<li>它可以添加注释，以字符<code>#</code>或<code>!</code>开头的行会被忽略</li>
+</ol>
+<p>当然<code>Properties</code>也有限制，它不能直接处理中文，如果配置文件里面需要使用非 ASCII 字符，我们需要使用 Unicode 编码。我们可以使用 JDK 提供的命令来转换：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">native2ascii -encoding UTF-<span class="number">8</span> <span class="keyword">native</span>.properties ascii.properties</span><br></pre></td></tr></table></figure>
+<p><code>native.properties</code>是输入文件，里面包含中文；<code>ascii.properties</code>表示输出文件，里面的中文会变成 ASCII 字符；<code>encoding</code>表示输入文件的编码，这边是<code>UTF-8</code>。<br>在 IDEA 里面可以按照下面的图进行设置，编译器会自己做转换，很舒适：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/1561375/1705738834311-eeaa2fcc-d758-40c3-8e95-efcdd8e262cf.png#averageHue=%233f4347&clientId=u69870eb3-2627-4&from=paste&height=708&id=u012bf14e&originHeight=708&originWidth=982&originalType=binary&ratio=1&rotation=0&showTitle=false&size=98956&status=done&style=none&taskId=u89d1617e-0aba-448c-8882-9a99c528b40&title=&width=982" alt="image.png"></p>
+<h5 id="压缩包"><a href="#压缩包" class="headerlink" title="压缩包"></a>压缩包</h5><p>压缩文件有很多格式，Java 支持 gzip 和 zip 两种格式。gzip 格式只支持压缩单个文件，目录不允许压缩；而 zip 不限制文件数目和类型，即目录也可以压缩。</p>
+<h6 id="gzip"><a href="#gzip" class="headerlink" title="gzip"></a>gzip</h6><p>gzip 主要有两个类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.util.zip.GZIPOutputStream</span><br><span class="line">java.util.zip.GZIPInputStream</span><br></pre></td></tr></table></figure>
+<p>它们分别是<code>OutputStream</code>和<code>InputStream</code>的子类，都是装饰类。将<code>GZIPOutputStream</code>和<code>GZIPInputStream</code>对已有的流进行装饰就可以实现压缩和解压缩。<br>例如下面的用法，使用 gzip 创建的压缩文件后缀名是<code>.gz</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">gzip</span><span class="params">(String filePath, String zipFilePath)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="type">File</span> <span class="variable">f</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(filePath);</span><br><span class="line">    <span class="keyword">if</span> (!f.exists()) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">FileNotFoundException</span>(filePath);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">InputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedInputStream</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(f));</span><br><span class="line">    <span class="comment">// 用 GZIPOutputStream 装饰已有的流输出的就是压缩文件</span></span><br><span class="line">    <span class="type">OutputStream</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GZIPOutputStream</span>(</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">BufferedOutputStream</span>(<span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(zipFilePath)));</span><br><span class="line">    <span class="keyword">try</span> (in; out) &#123;</span><br><span class="line">        in.transferTo(out);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">gunzip</span><span class="params">(String zipFilePath, String unzipFilePath)</span> </span><br><span class="line">		<span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="type">File</span> <span class="variable">zipFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(zipFilePath);</span><br><span class="line">    <span class="keyword">if</span> (!zipFile.exists()) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">FileNotFoundException</span>(zipFilePath);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 用 GZIPInputStream 装饰已有的流可以读取压缩文件</span></span><br><span class="line">    <span class="type">InputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GZIPInputStream</span>(</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">BufferedInputStream</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(zipFile)));</span><br><span class="line">    <span class="type">OutputStream</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedOutputStream</span>(</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(unzipFilePath));</span><br><span class="line">    <span class="keyword">try</span> (in; out) &#123;</span><br><span class="line">        in.transferTo(out);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意，使用 gzip 不支持压缩目录。</strong></p>
+<h6 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h6><p>zip 格式支持压缩多个文件，包括目录。Java 提供的主要的类是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.util.zip.ZipOutputStream</span><br><span class="line">java.util.zip.ZipInputStream</span><br></pre></td></tr></table></figure>
+<p>它们也分别是<code>OutputStream</code>和<code>InputStream</code>的子类，也都是装饰类。不过区别于上面的 gzip，使用起来会稍微复杂点。<br><code>ZipOutputStream</code>可以写多个文件，它有一个重要方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">putNextEntry</span><span class="params">(ZipEntry e)</span> <span class="keyword">throws</span> IOException</span><br></pre></td></tr></table></figure>
+<p>在写每一个文件之前需要调用这个方法，表示将要写一个压缩条目<code>ZipEntry</code>。这个压缩条目需要文件的相对最上层的路径，如果是目录需要以路径分隔符结尾，构造如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">ZipEntry</span><span class="params">(String name)</span></span><br></pre></td></tr></table></figure>
+<p>压缩一个文件或目录的方法可以包装如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">zip</span><span class="params">(File inFile, File zipFile)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="keyword">try</span> (<span class="type">ZipOutputStream</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ZipOutputStream</span>(<span class="keyword">new</span> <span class="title class_">BufferedOutputStream</span>(</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(zipFile)))) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!inFile.exists()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">FileNotFoundException</span>(inFile.getAbsolutePath());</span><br><span class="line">        &#125;</span><br><span class="line">        inFile = inFile.getCanonicalFile();</span><br><span class="line">        <span class="type">String</span> <span class="variable">rootPath</span> <span class="operator">=</span> inFile.getParent();</span><br><span class="line">        <span class="keyword">if</span> (!rootPath.endsWith(File.separator)) &#123;</span><br><span class="line">            rootPath += File.separator;</span><br><span class="line">        &#125;</span><br><span class="line">        addFileToZipOut(inFile, out, rootPath);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">addFileToZipOut</span><span class="params">(File file, ZipOutputStream out, </span></span><br><span class="line"><span class="params">                                    String rootPath)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">relativePath</span> <span class="operator">=</span> file.getCanonicalPath().substring(</span><br><span class="line">            rootPath.length());</span><br><span class="line">    <span class="keyword">if</span>(file.isFile()) &#123;</span><br><span class="line">        out.putNextEntry(<span class="keyword">new</span> <span class="title class_">ZipEntry</span>(relativePath));</span><br><span class="line">        <span class="keyword">try</span> (<span class="type">InputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedInputStream</span>(</span><br><span class="line">            	<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(file))) &#123;</span><br><span class="line">            in.transferTo(out);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        out.putNextEntry(<span class="keyword">new</span> <span class="title class_">ZipEntry</span>(relativePath + File.separator));</span><br><span class="line">        <span class="keyword">for</span>(File f : file.listFiles()) &#123;</span><br><span class="line">            addFileToZipOut(f, out, rootPath);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>ZipInputStream</code>用于解压<code>zip</code>文件，它有一个方法用于获取下一个条目：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ZipEntry <span class="title function_">getNextEntry</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span><br></pre></td></tr></table></figure>
+<p>解压缩的代码就可以写成：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">unzip</span><span class="params">(File zipFile, String destDir)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="keyword">try</span> (<span class="type">ZipInputStream</span> <span class="variable">zin</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ZipInputStream</span>(<span class="keyword">new</span> <span class="title class_">BufferedInputStream</span>(</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(zipFile)))) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!destDir.endsWith(File.separator)) &#123;</span><br><span class="line">            destDir += File.separator;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">ZipEntry</span> <span class="variable">entry</span> <span class="operator">=</span> zin.getNextEntry();</span><br><span class="line">        <span class="keyword">while</span> (entry != <span class="literal">null</span>) &#123;</span><br><span class="line">            extractZipEntry(entry, zin, destDir);</span><br><span class="line">            entry = zin.getNextEntry();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">extractZipEntry</span><span class="params">(ZipEntry entry, ZipInputStream zin,</span></span><br><span class="line"><span class="params">                                    String destDir)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="keyword">if</span>(!entry.isDirectory()) &#123;</span><br><span class="line">        <span class="type">File</span> <span class="variable">parent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(destDir + entry.getName()).getParentFile();</span><br><span class="line">        <span class="keyword">if</span>(!parent.exists()) &#123;</span><br><span class="line">            parent.mkdirs();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> (<span class="type">OutputStream</span> <span class="variable">entryOut</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedOutputStream</span>(</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(destDir + entry.getName()))) &#123;</span><br><span class="line">            zin.transferTo(entryOut);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">File</span>(destDir + entry.getName()).mkdirs();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="其它文件"><a href="#其它文件" class="headerlink" title="其它文件"></a>其它文件</h5><p>其它包括 CSV、Excel 等文件的处理可以参考下面的笔记。<br><a target="_blank" rel="noopener" href="https://space-jiangsu.yuque.com/bcsfg9/ia5lzr/isn6ix9dwqfpsw31?view=doc_embed">4. 常用三方库</a></p>
+<h4 id="随机读写文件"><a href="#随机读写文件" class="headerlink" title="随机读写文件"></a>随机读写文件</h4><p>Java 使用<code>RandomAccessFile</code>类实现随机读写文件，本节先探讨类的使用，再使用它实现一个简单的键值对数据库。</p>
+<h5 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h5><p><code>RandomAccessFile</code>的构造有：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">RandomAccessFile</span><span class="params">(String name, String mode)</span> <span class="keyword">throws</span> FileNotFoundException</span><br><span class="line"><span class="keyword">public</span> <span class="title function_">RandomAccessFile</span><span class="params">(File file, String mode)</span> <span class="keyword">throws</span> FileNotFoundException</span><br></pre></td></tr></table></figure>
+<p>参数<code>name</code>和<code>file</code>都表示文件，参数<code>mode</code>表示文件的打开方式，主要有以下取值：</p>
+<ul>
+<li><code>r</code>只用于读</li>
+<li><code>rw</code>用于读和写</li>
+<li><code>rwd</code>用于读和写，且文件内容的更新同步到设备上</li>
+<li><code>rws</code>用于读和写，且文件内容或元数据的更新同步到设备上</li>
+</ul>
+<p><code>RandomAccessFile</code>虽然不是<code>InputStream/OutputStream</code>的子类，但它也有类似的读写字节流的方法。此外，它还实现了<code>DataInput/DataOutput</code>接口，我们列举部分方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">read</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">read</span><span class="params">(<span class="type">byte</span>[] b)</span> <span class="keyword">throws</span> IOException</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">read</span><span class="params">(<span class="type">byte</span>[] b, <span class="type">int</span> off, <span class="type">int</span> len)</span> <span class="keyword">throws</span> IOException</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">write</span><span class="params">(<span class="type">int</span> b)</span> <span class="keyword">throws</span> IOException</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">write</span><span class="params">(<span class="type">byte</span>[] b)</span> <span class="keyword">throws</span> IOException</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">write</span><span class="params">(<span class="type">byte</span>[] b, <span class="type">int</span> off, <span class="type">int</span> len)</span> <span class="keyword">throws</span> IOException</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">readInt</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">writeInt</span><span class="params">(<span class="type">int</span> v)</span> <span class="keyword">throws</span> IOException</span><br><span class="line"><span class="comment">// 其它诸如 readLong、writeBoolean 等等都是存在的</span></span><br></pre></td></tr></table></figure>
+<p><code>RandomAccessFile</code>还有另外两个读方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">readFully</span><span class="params">(<span class="type">byte</span> b[])</span> <span class="keyword">throws</span> IOException</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">readFully</span><span class="params">(<span class="type">byte</span> b[], <span class="type">int</span> off, <span class="type">int</span> len)</span> <span class="keyword">throws</span> IOException</span><br></pre></td></tr></table></figure>
+<p>这两个方法与对应的<code>read</code>方法是一样的，不过它们可以保证能够读取的期望长度，若文件到结尾了还没读够会抛<code>EOFException</code>异常。<br><code>RandomAccessFile</code>内部有一个文件指针，我们可以调用方法获取或设置文件指针当前位置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取文件指针当前位置，位置就是当前距离文件开头的偏移字节数</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">native</span> <span class="type">long</span> <span class="title function_">getFilePointer</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span><br><span class="line"><span class="comment">// 设置文件指针的位置</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title function_">seek</span><span class="params">(<span class="type">long</span> pos)</span> <span class="keyword">throws</span> IOException</span><br><span class="line"><span class="comment">// 跳过 n 个字节，内部使用移动文件指针实现</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">skipBytes</span><span class="params">(<span class="type">int</span> n)</span> <span class="keyword">throws</span> IOException</span><br></pre></td></tr></table></figure>
+<p>关于方法<code>skipBytes</code>有以下注意点：</p>
+<ul>
+<li>只能向后跳，不能向前跳。传入一个负数将什么都不做，直接返回 0</li>
+<li>如果跳跃目的地大于文件长度，会直接跳到末尾并返回实际跳过的字节数</li>
+</ul>
+<p><code>RandomAccessFile</code>还可以操作文件长度：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取文件长度，单位是字节</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">native</span> <span class="type">long</span> <span class="title function_">length</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span><br><span class="line"><span class="comment">// 设置文件长度，单位也是字节</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title function_">setLength</span><span class="params">(<span class="type">long</span> newLength)</span> <span class="keyword">throws</span> IOException</span><br></pre></td></tr></table></figure>
+<p>对于方法<code>setLength</code>有以下注意点：</p>
+<ul>
+<li>若当前文件长度小于<code>newLength</code>，则文件会扩展，扩展部分内容未定义。</li>
+<li>若当前文件长度大于<code>newLength</code>，则文件多出的部分会被截取；这种情况下，若文件指针比<code>newLength</code>大，则将文件指针更新为<code>newLength</code>。</li>
+</ul>
+<p>最后有两个方法需要着重注意：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">writeBytes</span><span class="params">(String s)</span> <span class="keyword">throws</span> IOException</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> String <span class="title function_">readLine</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span><br></pre></td></tr></table></figure>
+<p>这两个方法看上去是写入一个字符串或读取一行字符串，但实际有坑。因为这两个方法没有编码的概念，即它们都认为一个字节代表一个字符，对于汉字来说显然是错误的。因此我们应该<strong>避免</strong>使用这两个方法。</p>
+<h5 id="实现键值对数据库"><a href="#实现键值对数据库" class="headerlink" title="实现键值对数据库"></a>实现键值对数据库</h5><p>本节我们将会实现一个简单的键值对数据库<code>BasicDB</code>，它可以保存、查找、删除键值对。和<code>Map</code>不同，我们是将键值对存在文件里而不是内存，因此可以大大节省内存。此外，处于效率考虑，我们将采用<code>RandomAccessFile</code>来随机读取。</p>
+<h6 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h6><p>我们将创建两个文件：<code>.data</code>文件和<code>.meta</code>文件。</p>
+<ul>
+<li><code>.data</code>文件用来存储所有的值<ul>
+<li>每个值占据的字节数固定为 1024 字节</li>
+<li>前 4 个字节存储值的实际长度，后 1020 个字节存储值本身</li>
+</ul>
+</li>
+<li><code>.meta</code>文件主要有两个作用：<ol>
+<li>用来维护键与值的映射关系</li>
+<li>存储所有空白空间的文件指针，所谓空白空间是指本来有值但目前已经被删除掉的空间</li>
+</ol>
+</li>
+</ul>
+<p>我们在存储值的时候优先使用空白空间，不存在空白空间才会写到文件结尾。</p>
+<h6 id="关于键值对"><a href="#关于键值对" class="headerlink" title="关于键值对"></a>关于键值对</h6><p>出于简单考虑，键只能是字符串类型，值只能是字节数组。不论是基本数据类型转还是自定义类都可以使用下面的方法转成字节数组：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将学生类转换成字节数组</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">byte</span>[] toBytes(Student s) <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="type">ByteArrayOutputStream</span> <span class="variable">bos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayOutputStream</span>();</span><br><span class="line">    <span class="type">DataOutputStream</span> <span class="variable">ds</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DataOutputStream</span>(bos);</span><br><span class="line">    ds.writeUTF(s.name);</span><br><span class="line">    ds.writeInt(s.age);</span><br><span class="line">    ds.writeDouble(s.score);</span><br><span class="line">    <span class="keyword">return</span> bos.toByteArray();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从字节数组恢复学生对象</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Student <span class="title function_">fromBytes</span><span class="params">(<span class="type">byte</span>[] b)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="type">ByteArrayInputStream</span> <span class="variable">bis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayInputStream</span>(b);</span><br><span class="line">    <span class="type">DataInputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DataInputStream</span>(bis);</span><br><span class="line">    <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> in.readUTF();</span><br><span class="line">    <span class="type">int</span> <span class="variable">age</span> <span class="operator">=</span> in.readInt();</span><br><span class="line">    <span class="type">double</span> <span class="variable">score</span> <span class="operator">=</span> in.readDouble();</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Student</span>(name, age, score);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们初步可以这样实现，后面介绍了序列化会简单很多。</p>
+<h6 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h6><p><code>BasicDB</code>的构造设计如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">BasicDB</span><span class="params">(String path, String name)</span></span><br></pre></td></tr></table></figure>
+<p>参数<code>path</code>表示文件的存储目录，<code>name</code>表示数据库文件名。<br><code>BasicDB</code>提供的公开方法有：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">put</span><span class="params">(String key, <span class="type">byte</span>[] value)</span>  <span class="comment">// 添加键值对</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">byte</span>[] get(String key)  <span class="comment">// 根据键获取值</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">remove</span><span class="params">(String key)</span>  <span class="comment">// 删除键值对</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">flush</span><span class="params">()</span>  <span class="comment">// 将数据保存到文件</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">close</span><span class="params">()</span>  <span class="comment">// 关闭数据库</span></span><br></pre></td></tr></table></figure>
+<h6 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BasicDB</span> &#123;</span><br><span class="line">    <span class="comment">// value 占据的最大字节数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAX_DATA_SIZE</span> <span class="operator">=</span> <span class="number">1020</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DATA_SUFFIX</span> <span class="operator">=</span> <span class="string">&quot;.data&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">META_SUFFIX</span> <span class="operator">=</span> <span class="string">&quot;.meta&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Queue&lt;Long&gt; gaps;  <span class="comment">// 保存所有空白空间的文件指针</span></span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, Long&gt; indexMap;  <span class="comment">// 保存键与值地址的映射</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> File metaFile;</span><br><span class="line">    <span class="keyword">private</span> RandomAccessFile dataFile;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BasicDB</span><span class="params">(String path, String name)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        metaFile = <span class="keyword">new</span> <span class="title class_">File</span>(path + name + META_SUFFIX);</span><br><span class="line">        dataFile = <span class="keyword">new</span> <span class="title class_">RandomAccessFile</span>(path + name + DATA_SUFFIX, <span class="string">&quot;rw&quot;</span>);</span><br><span class="line">        gaps = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line">        indexMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span> (metaFile.exists()) &#123;  <span class="comment">// 加载文件保存的映射关系</span></span><br><span class="line">            loadMeta();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">loadMeta</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="keyword">try</span> (<span class="type">DataInputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DataInputStream</span>(</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">BufferedInputStream</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(metaFile)))) &#123;</span><br><span class="line">            loadIndex(in);</span><br><span class="line">            loadGaps(in);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">loadGaps</span><span class="params">(DataInputStream in)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> in.readInt();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; size; ++i) &#123;</span><br><span class="line">            gaps.offer(in.readLong());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">loadIndex</span><span class="params">(DataInputStream in)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> in.readInt();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; size; ++i) &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> in.readUTF();</span><br><span class="line">            <span class="type">Long</span> <span class="variable">value</span> <span class="operator">=</span> in.readLong();</span><br><span class="line">            indexMap.put(key, value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">saveMeta</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="keyword">try</span> (<span class="type">DataOutputStream</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DataOutputStream</span>(</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">BufferedOutputStream</span>(<span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(metaFile)))) &#123;</span><br><span class="line">            saveIndex(out);</span><br><span class="line">            saveGaps(out);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">saveGaps</span><span class="params">(DataOutputStream out)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        out.writeInt(gaps.size());</span><br><span class="line">        <span class="keyword">for</span> (Long l : gaps) &#123;</span><br><span class="line">            out.writeLong(l);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">saveIndex</span><span class="params">(DataOutputStream out)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        out.writeInt(indexMap.size());</span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;String, Long&gt; entry : indexMap.entrySet()) &#123;</span><br><span class="line">            out.writeUTF(entry.getKey());</span><br><span class="line">            out.writeLong(entry.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 读取指定位置的值</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">byte</span>[] readDB(<span class="type">long</span> idx) <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        dataFile.seek(idx);</span><br><span class="line">        <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> dataFile.readInt();</span><br><span class="line">        <span class="type">byte</span>[] buffer = <span class="keyword">new</span> <span class="title class_">byte</span>[size];</span><br><span class="line">        dataFile.readFully(buffer);</span><br><span class="line">        <span class="keyword">return</span> buffer;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 往指定位置写值</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">writeDB</span><span class="params">(<span class="type">long</span> idx, <span class="type">byte</span>[] value)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        dataFile.seek(idx);</span><br><span class="line">        dataFile.writeInt(value.length);</span><br><span class="line">        dataFile.write(value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取空白位置地址，gaps 里有就使用，没有就写在文件最后</span></span><br><span class="line">    <span class="keyword">private</span> Long <span class="title function_">getAvailableIndex</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="keyword">if</span> (!gaps.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">return</span> gaps.remove();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dataFile.length();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">put</span><span class="params">(String key, <span class="type">byte</span>[] value)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="keyword">if</span> (value.length &gt; MAX_DATA_SIZE) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(</span><br><span class="line">                <span class="string">&quot;The length of data is greater than &quot;</span> + MAX_DATA_SIZE);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">Long</span> <span class="variable">idx</span> <span class="operator">=</span> indexMap.get(key);</span><br><span class="line">        <span class="keyword">if</span> (idx == <span class="literal">null</span>) &#123;</span><br><span class="line">            idx = getAvailableIndex();</span><br><span class="line">            indexMap.put(key, idx);</span><br><span class="line">        &#125;</span><br><span class="line">        writeDB(idx, value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">byte</span>[] get(String key) <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">Long</span> <span class="variable">idx</span> <span class="operator">=</span> indexMap.get(key);</span><br><span class="line">        <span class="keyword">if</span> (idx == <span class="literal">null</span>) <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">return</span> readDB(idx);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">byte</span>[] remove(String key) <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">Long</span> <span class="variable">idx</span> <span class="operator">=</span> indexMap.remove(key);</span><br><span class="line">        <span class="keyword">if</span> (idx == <span class="literal">null</span>) <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        gaps.offer(idx);</span><br><span class="line">        <span class="keyword">return</span> readDB(idx);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">flush</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        saveMeta();</span><br><span class="line">        dataFile.getFD().sync();  <span class="comment">// 确保文件被写到磁盘</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">close</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        flush();</span><br><span class="line">        dataFile.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>鉴于我们值的类型被固定为字节数组，使用的时候可能有些不方便。我们可以实现一个<code>BasicDB</code>的包装类，包装类可以提供一些类似<code>readInt/WriteInt</code>方法，我们在这些方法里面进行对象与字节数组的转换。</p>
+<h4 id="内存映射文件"><a href="#内存映射文件" class="headerlink" title="内存映射文件"></a>内存映射文件</h4><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>内存映射文件是操作系统提供的一种功能，大部分操作系统都支持。简单说就是将文件映射到内存里的一个字节数组中，将对文件的操作转变为对字节数组的操作。而对字节数组的操作也能映射到文件中，这种映射可以映射文件的全部，也可以是部分。<br>正常操作系统实现的时候都会采用懒加载，文件不会立刻加载到内存，而是等实际发生读写的时候再按需加载。加载的时候以页为单位，一般一页是<code>4k/8k</code>字节。正是懒加载机制，<strong>内存映射文件能高效处理大文件</strong>。<br>内存映射文件的一个重要特点是：<strong>它可以被多个不同的应用程序共享</strong>，多个程序可以映射同一个文件到同一块内存中，一个程序对内存的修改，其它应用程序也能看到。这就使得内存映射文件<strong>很适合用于多个应用程序之间的通信</strong>。<br>内存映射文件也有局限性：</p>
+<ul>
+<li>它不适合处理小文件，因为它内部是按页分配内存，文件太小会浪费内存。</li>
+<li>内存映射会消耗一定的操作系统资源，初始化比较慢。</li>
+</ul>
+<p>总结下来，对于一般的文件操作不需要使用内存映射文件，当我们处理的文件很大或需要多个程序共享的时候可以使用。</p>
+<h5 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h5><h6 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h6><p><code>FileInputStream/FileOutputStream/RandomAccessFile</code>类里有以下方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> FileChannel <span class="title function_">getChannel</span><span class="params">()</span></span><br></pre></td></tr></table></figure>
+<p>这个方法会返回<code>FileChannel</code>对象，<code>FileChannel</code>有如下方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> MappedByteBuffer <span class="title function_">map</span><span class="params">(MapMode mode, <span class="type">long</span> position, <span class="type">long</span> size)</span> </span><br><span class="line">	<span class="keyword">throws</span> IOException</span><br></pre></td></tr></table></figure>
+<p>这个<code>map</code>方法能将当前文件映射到内存，返回的<code>MappedByteBuffer</code>对象就是内存里的字节数组。我们先看看<code>map</code>方法的三个参数：</p>
+<ul>
+<li><code>mode</code>表示映射模式，主要有三种取值<ul>
+<li><code>MapMode.READ_ONLY</code>表示只读映射</li>
+<li><code>MapMode.READ_WRITE</code>表示读写映射</li>
+<li><code>MapMode.PRIVATE</code>私有模式，更改不反应到文件，对其它程序也不可见</li>
+</ul>
+</li>
+<li><code>position</code>表示映射的起始位置</li>
+<li><code>size</code>表示映射的长度</li>
+</ul>
+<p>注意，映射模式受限于流的打开方式。例如使用模式<code>&quot;r&quot;</code>打开一个<code>RandomAccessFile</code>，映射的时候就不能使用读写映射，强行使用会抛异常。<br>此外，如果映射的区域超出了现有文件的范围，文件将会被自动扩展，扩展部分总结内容为 0。映射完成后，文件可以关闭，这不影响使用<code>MappedByteBuffer</code>操作文件。</p>
+<h6 id="ByteBuffer"><a href="#ByteBuffer" class="headerlink" title="ByteBuffer"></a>ByteBuffer</h6><p>至于<code>MappedByteBuffer</code>怎么使用，我们先来介绍<code>MappedByteBuffer</code>的父类<code>ByteBuffer</code>。<br><code>ByteBuffer</code>可以简单理解为封装了一个字节数组，这个字节数组长度<strong>不可变</strong>，在内存映射文件里，这个长度由参数<code>size</code>指定。此外<code>ByteBuffer</code>还有一个属性<code>position</code>表示当前的读写位置，我们可以使用下面的方法操作<code>position</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">position</span><span class="params">()</span>  <span class="comment">//឴ 获取当前的操作位置</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> Buffer <span class="title function_">position</span><span class="params">(<span class="type">int</span> newPosition)</span>  <span class="comment">// 设置新位置</span></span><br></pre></td></tr></table></figure>
+<p><code>ByteBuffer</code>里面有许多基于当前位置的读写方法，部分如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="type">byte</span> <span class="title function_">get</span><span class="params">()</span>  <span class="comment">// 获取一个字节的内容</span></span><br><span class="line"><span class="keyword">public</span> ByteBuffer <span class="title function_">get</span><span class="params">(<span class="type">byte</span>[] dst)</span>  <span class="comment">// 获取内容填满 dst</span></span><br><span class="line"><span class="keyword">public</span> ByteBuffer <span class="title function_">get</span><span class="params">(<span class="type">byte</span>[] dst, <span class="type">int</span> offset, <span class="type">int</span> length)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> ByteBuffer <span class="title function_">put</span><span class="params">(<span class="type">byte</span> b)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> ByteBuffer <span class="title function_">put</span><span class="params">(<span class="type">byte</span>[] src)</span></span><br><span class="line"><span class="keyword">public</span> ByteBuffer <span class="title function_">put</span><span class="params">(<span class="type">byte</span>[] src, <span class="type">int</span> offset, <span class="type">int</span> length)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="type">int</span> <span class="title function_">getInt</span><span class="params">()</span>  <span class="comment">// 从当前位置读取一个 int</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> ByteBuffer <span class="title function_">putLong</span><span class="params">(<span class="type">long</span> value)</span>;  <span class="comment">// 往当前位置写入一个 long</span></span><br></pre></td></tr></table></figure>
+<p>注意，因为读写的都是字节，所以没有<code>getString/putString</code>方法。<br>除此之外，还有操作指定位置的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="type">byte</span> <span class="title function_">get</span><span class="params">(<span class="type">int</span> index)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> ByteBuffer <span class="title function_">put</span><span class="params">(<span class="type">int</span> index, <span class="type">byte</span> b)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="type">double</span> <span class="title function_">getDouble</span><span class="params">(<span class="type">int</span> index)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> ByteBuffer <span class="title function_">putDouble</span><span class="params">(<span class="type">int</span> index, <span class="type">double</span> value)</span></span><br></pre></td></tr></table></figure>
+<p>这些方法相比上面的方法都是多了一个参数<code>index</code>表示操作的内容位置。</p>
+<h6 id="MappedByteBuffer"><a href="#MappedByteBuffer" class="headerlink" title="MappedByteBuffer"></a>MappedByteBuffer</h6><p>除了上面的那些方法，<code>MappedByteBuffer</code>还有一些特有的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">boolean</span> <span class="title function_">isLoaded</span><span class="params">()</span>  <span class="comment">// 返回文件内容是否真的加载到了内存，结果不一定准确</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> MappedByteBuffer <span class="title function_">load</span><span class="params">()</span>  <span class="comment">// 尽力将文件内容加载到内存</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> MappedByteBuffer <span class="title function_">force</span><span class="params">()</span>  <span class="comment">// 将内存的修改强制同步到磁盘</span></span><br></pre></td></tr></table></figure>
+<h5 id="实现消息队列"><a href="#实现消息队列" class="headerlink" title="实现消息队列"></a>实现消息队列</h5><p>本节我们将会实现一个简单的消息队列<code>BasicQueue</code>，这是一个先进先出、长度固定的循环队列。它的特色是：</p>
+<ol>
+<li>能将消息持久化，不仅仅存在于内存</li>
+<li>支持多个应用程序的共享消息队列</li>
+</ol>
+<p>我们使用循环队列的思想，尾指针指向新元素的下标。为了区分满队和空队，我们规定：</p>
+<ul>
+<li>尾指针后面是头指针的时候为满队</li>
+<li>尾指针和头指针重合的时候是空队</li>
+</ul>
+<p>这将会浪费一个空间。</p>
+<h6 id="设计-1"><a href="#设计-1" class="headerlink" title="设计"></a>设计</h6><p>我们将创建两个文件：<code>.data</code>文件和<code>.meta</code>文件。</p>
+<ul>
+<li><code>.data</code>文件用来存储所有的消息<ul>
+<li>每个消息占据的字节数固定为 1024 字节</li>
+<li>前 4 个字节存储消息的实际长度，后 1020 个字节存储消息本身</li>
+</ul>
+</li>
+<li><code>.meta</code>文件存储队头和队尾元素的下标</li>
+</ul>
+<h6 id="接口-1"><a href="#接口-1" class="headerlink" title="接口"></a>接口</h6><p><code>BasicQueue</code>的构造方法是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">BasicQueue</span><span class="params">(String path, String name)</span> <span class="keyword">throws</span> IOException</span><br></pre></td></tr></table></figure>
+<p>参数<code>path</code>表示文件的存储目录，<code>name</code>表示文件名。<br><code>BasicQueue</code>提供的公开接口方法有：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">enqueue</span><span class="params">(<span class="type">byte</span>[] data)</span> <span class="keyword">throws</span> IOException  <span class="comment">// 入队</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">byte</span>[] dequeue() <span class="keyword">throws</span> IOException  <span class="comment">// 出队</span></span><br></pre></td></tr></table></figure>
+<h6 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BasicQueue</span> &#123;</span><br><span class="line">    <span class="comment">// 实际上消息最多 99 个，因为循环队列会浪费一个空间</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAX_MSG_NUM</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAX_MSG_SIZE</span> <span class="operator">=</span> <span class="number">1020</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">BLOCK_SIZE</span> <span class="operator">=</span> MAX_MSG_SIZE + <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">META_SUFFIX</span> <span class="operator">=</span> <span class="string">&quot;.meta&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DATA_SUFFIX</span> <span class="operator">=</span> <span class="string">&quot;.data&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAX_META_SIZE</span> <span class="operator">=</span> <span class="number">8</span>;  <span class="comment">// 存两个 int 表示头尾指针</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAX_DATA_SIZE</span> <span class="operator">=</span> BLOCK_SIZE * MAX_MSG_NUM;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> MappedByteBuffer metaBuffer;</span><br><span class="line">    <span class="keyword">private</span> MappedByteBuffer dataBuffer;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BasicQueue</span><span class="params">(String path, String name)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">RandomAccessFile</span> <span class="variable">meta</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RandomAccessFile</span>(</span><br><span class="line">            path + name + META_SUFFIX, <span class="string">&quot;rw&quot;</span>);</span><br><span class="line">        <span class="type">RandomAccessFile</span> <span class="variable">data</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RandomAccessFile</span>(</span><br><span class="line">            path + name + DATA_SUFFIX, <span class="string">&quot;rw&quot;</span>);</span><br><span class="line">        <span class="keyword">try</span> (meta; data) &#123;</span><br><span class="line">            metaBuffer = meta.getChannel().map(</span><br><span class="line">                FileChannel.MapMode.READ_WRITE, <span class="number">0</span>, MAX_META_SIZE);</span><br><span class="line">            dataBuffer = data.getChannel().map(</span><br><span class="line">                FileChannel.MapMode.READ_WRITE, <span class="number">0</span>, MAX_DATA_SIZE);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">head</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> metaBuffer.getInt(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">head</span><span class="params">(<span class="type">int</span> h)</span> &#123;</span><br><span class="line">        metaBuffer.putInt(<span class="number">0</span>, h);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">tail</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> metaBuffer.getInt(<span class="number">4</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">tail</span><span class="params">(<span class="type">int</span> t)</span> &#123;</span><br><span class="line">        metaBuffer.putInt(<span class="number">4</span>, t);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isEmpty</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> head() == tail();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isFull</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> (tail() + <span class="number">1</span>) % MAX_MSG_NUM == head();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">enqueue</span><span class="params">(<span class="type">byte</span>[] data)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (data.length &gt; MAX_MSG_SIZE) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(</span><br><span class="line">                <span class="string">&quot;The length of data is greater than &quot;</span> + MAX_MSG_SIZE);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (isFull()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalStateException</span>(<span class="string">&quot;Queue is full!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">idx</span> <span class="operator">=</span> tail() * BLOCK_SIZE;</span><br><span class="line">        dataBuffer.position(idx);</span><br><span class="line">        dataBuffer.putInt(data.length);</span><br><span class="line">        dataBuffer.put(data);</span><br><span class="line">        tail((tail() + <span class="number">1</span>) % MAX_MSG_NUM);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">byte</span>[] dequeue() &#123;</span><br><span class="line">        <span class="keyword">if</span> (isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">idx</span> <span class="operator">=</span> head() * BLOCK_SIZE;</span><br><span class="line">        dataBuffer.position(idx);</span><br><span class="line">        <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> dataBuffer.getInt();</span><br><span class="line">        <span class="type">byte</span>[] data = <span class="keyword">new</span> <span class="title class_">byte</span>[size];</span><br><span class="line">        dataBuffer.get(data);</span><br><span class="line">        head((head() + <span class="number">1</span>) % MAX_MSG_NUM);</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码不是很难，我们在测试的时候可以测一下多个程序共享内存的情况，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Producer</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> </span><br><span class="line">    		<span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> <span class="string">&quot;demo&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">path</span> <span class="operator">=</span> <span class="string">&quot;/Users/luyan/Documents/idea/JavaDemo/out/queue/&quot;</span>;</span><br><span class="line">        <span class="type">Random</span> <span class="variable">rnd</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">        <span class="type">BasicQueue</span> <span class="variable">queue</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BasicQueue</span>(path, name);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; ; ++i) &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">msg</span> <span class="operator">=</span> <span class="string">&quot;Task&quot;</span> + i;</span><br><span class="line">            queue.enqueue(msg.getBytes());</span><br><span class="line">            System.out.println(<span class="string">&quot;produce &quot;</span> + msg);</span><br><span class="line">            Thread.sleep(rnd.nextInt(<span class="number">1000</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Consumer</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> </span><br><span class="line">    		<span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> <span class="string">&quot;demo&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">path</span> <span class="operator">=</span> <span class="string">&quot;/Users/luyan/Documents/idea/JavaDemo/out/queue/&quot;</span>;</span><br><span class="line">        <span class="type">Random</span> <span class="variable">rnd</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">        <span class="type">BasicQueue</span> <span class="variable">queue</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BasicQueue</span>(path, name);</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">            <span class="type">byte</span>[] data = queue.dequeue();</span><br><span class="line">            <span class="keyword">if</span> (data == <span class="literal">null</span>) &#123;</span><br><span class="line">                Thread.sleep(rnd.nextInt(<span class="number">1000</span>));</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;consume &quot;</span> + <span class="keyword">new</span> <span class="title class_">String</span>(data));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="标准序列化"><a href="#标准序列化" class="headerlink" title="标准序列化"></a>标准序列化</h4><p>之前我们想将对象保存在文件里，会使用<code>DataOutputStream</code>按个字段存储。这比较麻烦，Java 里面还有更简单的机制，就是序列化。所谓序列化就是将对象转换成字节流，反序列化就是从字节流恢复对象。</p>
+<h5 id="用法-1"><a href="#用法-1" class="headerlink" title="用法"></a>用法</h5><p>要让一个类支持序列化，这个类必须实现<code>java.io.Serializable</code>接口。这个接口里面没有定义方法，只是为了描述一种能力。类实现了<code>Serializable</code>接口之后就可以使用<code>ObjectOutputStream/ObjectInputStream</code>进行序列化和反序列化了。<br><code>**ObjectOutputStream**</code>是<code>OutputStream</code>的子类，同时实现了<code>ObjectOutput</code>接口。因为<code>ObjectOutput</code>接口是<code>DataOutput</code>的子接口，所以诸如<code>writeInt/writeDouble/writeUTF</code>之类的方法都是支持的。此外，<code>ObjectOutput</code>接口新增了一个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">writeObject</span><span class="params">(Object obj)</span> <span class="keyword">throws</span> IOException</span><br></pre></td></tr></table></figure>
+<p>这个方法能将对象转换成字节写到流中。<br><code>**ObjectInputStream**</code>是<code>InputStream</code>的子类，同时实现了<code>ObjectInput</code>接口。因为<code>ObjectInput</code>是<code>DataInput</code>的子接口，所以诸如<code>readInt/readDouble/readUTF</code>之类方法也是支持的。此外，<code>ObjectInput</code>接口还新增了一个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Object <span class="title function_">readObject</span><span class="params">()</span> <span class="keyword">throws</span> ClassNotFoundException, IOException</span><br></pre></td></tr></table></figure>
+<p>这个方法能从流中读取字节转换成对象。</p>
+<h5 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h5><p>有了<code>ObjectOutputStream/ObjectInputStream</code>，我们想要在学生对象与字节数组之间进行相互转换就没有必要挨个字段进行了，我们就可以：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">byte</span>[] writeStudent(Student s) <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="type">ByteArrayOutputStream</span> <span class="variable">bos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayOutputStream</span>();</span><br><span class="line">    <span class="type">ObjectOutputStream</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(bos);</span><br><span class="line">    out.writeObject(s);</span><br><span class="line">    <span class="keyword">return</span> bos.toByteArray();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Student <span class="title function_">readStudent</span><span class="params">(<span class="type">byte</span>[] data)</span> </span><br><span class="line">		<span class="keyword">throws</span> IOException, ClassNotFoundException &#123;</span><br><span class="line">    <span class="type">ByteArrayInputStream</span> <span class="variable">bis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayInputStream</span>(data);</span><br><span class="line">    <span class="type">ObjectInputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(bis);</span><br><span class="line">    <span class="keyword">return</span> (Student) in.readObject();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不仅如此，如果<code>List</code>对象实现了<code>Serializable</code>接口，里面<code>item</code>也实现了<code>Serializable</code>接口。那么整个列表就可以直接序列化或反序列化：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Student&gt; list = Arrays.asList(</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;张三&quot;</span>, <span class="number">18</span>, <span class="number">99</span>)</span><br><span class="line">);</span><br><span class="line"><span class="type">String</span> <span class="variable">path</span> <span class="operator">=</span> <span class="string">&quot;/Users/luyan/Documents/idea/JavaDemo/out/stu.dat&quot;</span>;</span><br><span class="line"><span class="type">BufferedOutputStream</span> <span class="variable">bos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedOutputStream</span>(<span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(path));</span><br><span class="line"><span class="type">ObjectOutputStream</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(bos);</span><br><span class="line">out.writeObject(list);  <span class="comment">// 可以直接把整个列表写进去</span></span><br><span class="line">out.close();</span><br><span class="line"></span><br><span class="line"><span class="type">BufferedInputStream</span> <span class="variable">bis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedInputStream</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(path));</span><br><span class="line"><span class="type">ObjectInputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(bis);</span><br><span class="line">List&lt;Student&gt; s = (List&lt;Student&gt;) in.readObject();  <span class="comment">// 读也可以直接读整个列表</span></span><br><span class="line">System.out.println(s);</span><br><span class="line">in.close();</span><br></pre></td></tr></table></figure>
+<p>我们之前介绍的所有类，如<code>String/Date/Double/ArrayList/LinkedList/HashMap/TreeMap</code>都实现了<code>Serializable</code>接口。</p>
+<h5 id="复杂对象"><a href="#复杂对象" class="headerlink" title="复杂对象"></a>复杂对象</h5><p>对于复杂对象，Java 的序列化做的也很牛。所谓复杂：</p>
+<ol>
+<li>假设对象<code>a</code>和<code>b</code>同时引用了对象<code>c</code>，那么：<ul>
+<li>对象<code>c</code>只会被序列化 1 次，不会被重复序列化</li>
+<li>反序列化的时候，<code>a</code>与<code>b</code>里的<code>c</code>也会是同一个对象</li>
+</ul>
+</li>
+<li>如果对象<code>a</code>与对象<code>b</code>存在循环引用的情况，Java 也会处理的很好。反序列化之后的两个对象也会循环引用，就很强！</li>
+</ol>
+<h5 id="定制序列化"><a href="#定制序列化" class="headerlink" title="定制序列化"></a>定制序列化</h5><p>默认的序列化机制已经很强大了，但正是因为太强了，所以可能引发一些问题。<br>例如有些类里定义了属性用来存储对象的哈希值，而我们知道哈希值是和对象的存储位置相关联的，反序列化生成的对象内存地址发生了变化，再使用原来的哈希值就不合适了。<br>一般序列化我们会存储对象的逻辑信息而不是实现细节，比如<code>LinkedList</code>类表示双向链表，逻辑信息就是链表里的所有节点。但类里的变量诸如头指针、尾指针等都是实现细节，这些变量我们不应保存。为此，Java 为我们提供了定制序列化机制，主要有：<code>transient</code>关键字和<code>writeObject/readObject</code>方法。<br>将字段声明为<code>transient</code>，默认序列化机制就会忽略这个字段，不会对其进行保存和恢复。之前提到的<code>LinkedList</code>类里下面的变量就是<code>transient</code>的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">transient</span> <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">transient</span> Node&lt;E&gt; first;</span><br><span class="line"><span class="keyword">transient</span> Node&lt;E&gt; last;</span><br></pre></td></tr></table></figure>
+<p>而我们知道，这些变量还是很重要的。如果不保存的话会出问题，此时我们可以自定义<code>writeObject/readObject</code>方法来自己手动保存。<br><code>**writeObject**</code>方法表示对象的序列化过程，其声明必须是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">writeObject</span><span class="params">(ObjectOutputStream s)</span> <span class="keyword">throws</span> IOException</span><br></pre></td></tr></table></figure>
+<p>在这个方法里我们可以调用<code>ObjectOutputStream</code>的方法向流中写数据，例如<code>LinkedList</code>的实现如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">writeObject</span><span class="params">(java.io.ObjectOutputStream s)</span></span><br><span class="line">    	<span class="keyword">throws</span> java.io.IOException &#123;</span><br><span class="line">    s.defaultWriteObject();</span><br><span class="line">    s.writeInt(size);</span><br><span class="line">    <span class="keyword">for</span>(Node&lt;E&gt; x = first; x != <span class="literal">null</span>; x = x.next)</span><br><span class="line">    	s.writeObject(x.item);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在代码里第一行是<code>s.defaultWriteObject()</code>，这是必需的。这是在调用默认的序列化机制，用来保存所有未被<code>transient</code>修饰的字段和元数据描述信息，因此即使类里所有字段都被<code>transient</code>修饰了也应该调用它。<br><code>**readObject**</code>方法表示反序列化过程，其声明必须是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">readObject</span><span class="params">(ObjectInputStream s)</span></span><br><span class="line">	<span class="keyword">throws</span> IOException, ClassNotFoundException</span><br></pre></td></tr></table></figure>
+<p>在这个方法中，我们可以调用<code>ObjectInputStream</code>里的方法从流中读数据，然后初始化类的成员变量。例如<code>LinkedList</code>的反序列化方法定义如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">readObject</span><span class="params">(java.io.ObjectInputStream s)</span></span><br><span class="line">		<span class="keyword">throws</span> java.io.IOException, ClassNotFoundException &#123;</span><br><span class="line">    s.defaultReadObject();</span><br><span class="line">    <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> s.readInt();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; size; i++)</span><br><span class="line">    	linkLast((E)s.readObject());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不用多说<code>s.defaultReadObject()</code>也是必须的。</p>
+<h5 id="序列化基本原理"><a href="#序列化基本原理" class="headerlink" title="序列化基本原理"></a>序列化基本原理</h5><h6 id="序列化基本逻辑"><a href="#序列化基本逻辑" class="headerlink" title="序列化基本逻辑"></a>序列化基本逻辑</h6><ol>
+<li>若对象没有实现<code>Serializable</code>接口，抛<code>NotSerializableException</code>异常</li>
+<li>每个对象都有一个编号，如果之前写过该对象，则本次只会写它的引用。这就可以解决对象引用和循环引用的问题。</li>
+<li>如果对象定义了<code>writeObject</code>方法，则调用它自己的序列化方法</li>
+<li>默认利用反射机制遍历对象的结构图，对每个没有标记为<code>transient</code>的字段保存其完整类名、字段名、字段值等信息</li>
+</ol>
+<h6 id="反序列化基本逻辑"><a href="#反序列化基本逻辑" class="headerlink" title="反序列化基本逻辑"></a>反序列化基本逻辑</h6><ol>
+<li>生成对象的时候不会调用任何一个构造</li>
+<li>利用反射机制生成对象，然后从流中获取各字段的值</li>
+<li>解析每个字段的时候要是找不到类，会抛<code>ClassNotFoundException</code>异常</li>
+</ol>
+<h5 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h5><p>假设我们已经将某对象序列化了，现在我们修改了类定义，还能成功反序列化吗？<br>默认情况下，Java 会给类生成一个版本号，这个版本号是根据类中的一系列信息自动生成的。在反序列化时如果类的定义发生变化，这个版本号也会随之变化，那么就会与存储的版本号不同，此时会抛出<code>java.io.InvalidClassException</code>异常。<br>一般情况下，我们会希望自定义这个版本号，而不是让 Java 自动生成。这样一些细小的、不影响序列化的改动就不会报错了。我们可以在类中定义：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">1L</span>;</span><br></pre></td></tr></table></figure>
+<p>这个<code>serialVersionUID</code>就是自定义的版本号，值可以任意。<br>可以自定义版本号就必然会出现一个问题：如果类经过改动，但没改这个版本号，而字段又有不同，此时反序列化会怎么处理？Java 会尽可能保持兼容性，可以分成三种情况：</p>
+<ol>
+<li>字段被删除，即流里有但类里没有该字段，则该字段将会被忽略</li>
+<li>新增字段，即流里没有但类里有该字段，则该字段被设为默认值</li>
+<li>同名字段类型改变，这种情况会抛<code>InvalidClassException</code>异常</li>
+</ol>
+<h5 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h5><p>尽管 Java 序列化很强，但局限性也很明显，主要有：</p>
+<ol>
+<li>Java 的序列化格式是特有的，无法跨语言交互</li>
+<li>因为序列化会保存很多元数据，所以序列化文件较大</li>
+<li>Java 使用反射遍历对象结构，效率较低</li>
+<li>Java 序列化格式是二进制的，不便于修改和查看</li>
+</ol>
+<h4 id="Jackson-序列化"><a href="#Jackson-序列化" class="headerlink" title="Jackson 序列化"></a>Jackson 序列化</h4><p>由于 Java 序列化机制的诸多限制，实践中总是有一些替代，例如 JSON、XML、MessagePack 等。其中 JSON 和 XML 都是文本格式，MessagePack 是二进制格式的 JSON，编码更为精简高效。Jackson 对上面三种格式有很好的支持。</p>
+<h5 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h5><p>使用前先导包：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-databind<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.14.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Jackson 序列化的主要类是<code>ObjectMapper </code>，它线程安全，所以一个实例可以被多个线程调用。我们使用学生类举例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Student</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;张三&quot;</span>, <span class="number">18</span>, <span class="number">99</span>);</span><br><span class="line"><span class="type">ObjectMapper</span> <span class="variable">mapper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>();</span><br><span class="line"><span class="comment">// 生成的 JSON 有缩进，更美观</span></span><br><span class="line">mapper.enable(SerializationFeature.INDENT_OUTPUT);</span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> mapper.writeValueAsString(s);</span><br><span class="line">System.out.println(str);</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;张三&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;age&quot;</span> <span class="punctuation">:</span> <span class="number">18</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;score&quot;</span> <span class="punctuation">:</span> <span class="number">99.0</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>整体使用还是非常简单的，Jackson 使用反射机制获取参与生成的字段。但是<strong>注意：</strong>类中参与生成的字段需要被<code>public</code>修饰或有公开的<code>getter</code>，如果没有字段参与生成会报错。<br><code>ObjectMapper</code>还有其它方法可以将 JSON 数据写进字节数组、文件、流中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">byte</span>[] writeValueAsBytes(Object value)  <span class="comment">// 对象写进字节数组中</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">writeValue</span><span class="params">(OutputStream out, Object value)</span>  <span class="comment">// 对象写进输出流中</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">writeValue</span><span class="params">(Writer w, Object value)</span>  <span class="comment">// 对象写进 Writer 中</span></span><br><span class="line"><span class="comment">// 对象写进文件之中，文件不存在会创建</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">writeValue</span><span class="params">(File resultFile, Object value)</span></span><br></pre></td></tr></table></figure>
+<p>例如我们可以使用<code>mapper.writeValue(new File(&quot;student.json&quot;), student);</code>将 JSON 串写进<code>.json</code>文件中。<br>反序列化也非常简单，调用<code>ObjectMapper</code>的<code>readValue</code>方法。只需要给这个方法传递两个参数，一个是输入源，一个是要解析的类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ObjectMapper</span> <span class="variable">mapper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>();</span><br><span class="line"><span class="type">Student</span> <span class="variable">s</span> <span class="operator">=</span> mapper.readValue(<span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;student.json&quot;</span>), Student.class);</span><br><span class="line">System.out.println(s);</span><br></pre></td></tr></table></figure>
+<p>和序列化对应，输入源可以是字节数组、字符串等：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;T&gt; T <span class="title function_">readValue</span><span class="params">(InputStream src, Class&lt;T&gt; valueType)</span></span><br><span class="line"><span class="keyword">public</span> &lt;T&gt; T <span class="title function_">readValue</span><span class="params">(Reader src, Class&lt;T&gt; valueType)</span></span><br><span class="line"><span class="keyword">public</span> &lt;T&gt; T <span class="title function_">readValue</span><span class="params">(String content, Class&lt;T&gt; valueType)</span></span><br><span class="line"><span class="keyword">public</span> &lt;T&gt; T <span class="title function_">readValue</span><span class="params">(<span class="type">byte</span>[] src, Class&lt;T&gt; valueType)</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong>反序列化的时候会调用类的无参构造来创建对象，所如果类没有无参构造会报错。</p>
+<h5 id="XML"><a href="#XML" class="headerlink" title="XML"></a>XML</h5><p>使用前先导包：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.dataformat<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-dataformat-xml<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.15.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>注意这个包会和上面 JSON 的包有共同依赖，如果版本不同可能会出现错误。幸运的是，这个包完全包含上面 JSON 需要的包，所以需要同时解析 XML 和 JSON 只需要导这个包即可。<br>XML 格式的序列化和反序列化与 JSON 相似，只不过将<code>ObjectMapper</code>替换成<code>XmlMapper</code>，使用代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Student</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;张三&quot;</span>, <span class="number">18</span>, <span class="number">99</span>);</span><br><span class="line"><span class="type">ObjectMapper</span> <span class="variable">mapper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">XmlMapper</span>();</span><br><span class="line">mapper.enable(SerializationFeature.INDENT_OUTPUT);</span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> mapper.writeValueAsString(s);</span><br><span class="line">System.out.println(str);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 反序列化</span></span><br><span class="line"><span class="type">Student</span> <span class="variable">ss</span> <span class="operator">=</span> mapper.readValue(str, Student.class);</span><br><span class="line">System.out.println(ss);</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Student</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>张三<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">age</span>&gt;</span>18<span class="tag">&lt;/<span class="name">age</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">score</span>&gt;</span>99.0<span class="tag">&lt;/<span class="name">score</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Student</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>代码和上面完全一致，就是实例化对象变为了<code>XmlMapper</code>。<br>因为<code>XmlMapper</code>是<code>ObjectMapper</code>的子类，所以在 JSON 介绍的读写方法都是存在的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">byte</span>[] writeValueAsBytes(Object value)</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">writeValue</span><span class="params">(OutputStream out, Object value)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">writeValue</span><span class="params">(Writer w, Object value)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">writeValue</span><span class="params">(File resultFile, Object value)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> &lt;T&gt; T <span class="title function_">readValue</span><span class="params">(InputStream src, Class&lt;T&gt; valueType)</span></span><br><span class="line"><span class="keyword">public</span> &lt;T&gt; T <span class="title function_">readValue</span><span class="params">(Reader src, Class&lt;T&gt; valueType)</span></span><br><span class="line"><span class="keyword">public</span> &lt;T&gt; T <span class="title function_">readValue</span><span class="params">(String content, Class&lt;T&gt; valueType)</span></span><br><span class="line"><span class="keyword">public</span> &lt;T&gt; T <span class="title function_">readValue</span><span class="params">(<span class="type">byte</span>[] src, Class&lt;T&gt; valueType)</span></span><br></pre></td></tr></table></figure>
+<h5 id="MessagePack"><a href="#MessagePack" class="headerlink" title="MessagePack"></a>MessagePack</h5><p>使用前先导包：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.msgpack<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-dataformat-msgpack<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.8.16<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这个包里面也是包含 JSON 的包，如果版本冲突只添加这个包即可。<br>它的使用也非常简单，和 JSON 的使用几乎一样，只需要在创建<code>ObjectMapper</code>的时候传一个<code>MessagePackFactory</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Student</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;张三&quot;</span>, <span class="number">18</span>, <span class="number">99</span>);</span><br><span class="line"><span class="type">ObjectMapper</span> <span class="variable">mapper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>(<span class="keyword">new</span> <span class="title class_">MessagePackFactory</span>());</span><br><span class="line">mapper.enable(SerializationFeature.INDENT_OUTPUT);</span><br><span class="line"><span class="type">byte</span>[] bs = mapper.writeValueAsBytes(s);</span><br><span class="line">System.out.println(Arrays.toString(bs));</span><br><span class="line"></span><br><span class="line"><span class="type">Student</span> <span class="variable">ss</span> <span class="operator">=</span> mapper.readValue(bs, Student.class);</span><br><span class="line">System.out.println(ss);</span><br></pre></td></tr></table></figure>
+<p>因为创建的还是<code>ObjectMapper</code>，所以一些重载方法都是存在的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">byte</span>[] writeValueAsBytes(Object value)</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">writeValue</span><span class="params">(OutputStream out, Object value)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">writeValue</span><span class="params">(File resultFile, Object value)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> &lt;T&gt; T <span class="title function_">readValue</span><span class="params">(InputStream src, Class&lt;T&gt; valueType)</span></span><br><span class="line"><span class="keyword">public</span> &lt;T&gt; T <span class="title function_">readValue</span><span class="params">(<span class="type">byte</span>[] src, Class&lt;T&gt; valueType)</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong>MessagePack 本身就是二进制格式，所以不支持序列化成字符串和 Writer，相应的从字符串和 Reader 中反序列化也是不支持的。</p>
+<h5 id="容器对象"><a href="#容器对象" class="headerlink" title="容器对象"></a>容器对象</h5><p>容器对象主要包含数组、<code>List</code>和<code>Map</code>，这三种对象序列化的时候和普通对象没有区别，Jackson 会自动处理。反序列化的时候，需要传递类信息，这个需要注意一下：</p>
+<ol>
+<li>数组对象。我们使用学生数组举例子，反序列化的时候往<code>readValue</code>方法里面传递的类信息应该是<code>Student[].class</code>。</li>
+<li><code>List</code>对象。反序列化的时候传递的类信息是<code>new TypeReference&lt;List&lt;Student&gt;&gt;()&#123;&#125; </code>，最后要加一对空的大括号，因为<code>TypeReference</code>是抽象类不能直接实例化。</li>
+<li><code>Map</code>对象。传递<code>new TypeReference&lt;Map&lt;String, Student&gt;&gt;()&#123;&#125; </code>作为类型参数。</li>
+</ol>
+<h5 id="定制序列化-1"><a href="#定制序列化-1" class="headerlink" title="定制序列化"></a>定制序列化</h5><p>注意下面的这些操作我们会用 JOSN 格式的序列化&#x2F;反序列化举例子，实际上不论 XML 还是 MessagePack 都是一样的。</p>
+<h6 id="忽略字段"><a href="#忽略字段" class="headerlink" title="忽略字段"></a>忽略字段</h6><p>在标准序列化里面，一个字段被标记为<code>transient</code>，这个字段在序列化的时候会被忽略。Jackson 想要实现这样的功能需要借助两个注解之一：</p>
+<ul>
+<li><code>@JsonIgnore</code>这个注解用于字段、<code>getter</code>、<code>setter</code>上面用于忽略一个字段。</li>
+<li><code>@JsonIgnoreProperties</code>这个注解用于类的声明，可指定忽略的字段。</li>
+</ul>
+<p>例如我们想忽略学生成绩字段的两种做法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法一，在对应字段头上加上注解 @JsonIgnore</span></span><br><span class="line"><span class="meta">@JsonIgnore</span></span><br><span class="line"><span class="type">double</span> score;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法二，在类定义上加上注解 @JsonIgnoreProperties</span></span><br><span class="line"><span class="meta">@JsonIgnoreProperties(&quot;score&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果需要忽略多个字段，可以：</p>
+<ul>
+<li>在需要忽略的字段上都加上<code>@JsonIgnore</code>注解。</li>
+<li>使用类似于<code>@JsonIgnoreProperties(&#123;&quot;score&quot;, &quot;age&quot;&#125;) </code>的形式。</li>
+</ul>
+<p><strong>注意：</strong><code>@JsonIgnore</code>可以加在字段上，还可以加在对应的<code>getter</code>或<code>setter</code>上，效果是等价的。忽略字段表示序列化和反序列化的时候都会忽略，即使 JSON 串里存在，反序列化的时候也会忽略。</p>
+<h6 id="同一引用"><a href="#同一引用" class="headerlink" title="同一引用"></a>同一引用</h6><p>同一引用是指类里有多个变量指向同一个对象，看下面：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> B b1;</span><br><span class="line">    <span class="keyword">public</span> B b2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">B</span> <span class="variable">b</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">B</span>();</span><br><span class="line">b.name = <span class="string">&quot;BName&quot;</span>;</span><br><span class="line"><span class="type">A</span> <span class="variable">a</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">A</span>();</span><br><span class="line">a.b1 = a.b2 = b;</span><br></pre></td></tr></table></figure>
+<p>可以看出，<code>a</code>中有两个变量指向同一个对象。<br>我们正常对<code>a</code>序列化，得到的输出如右所示。<br>此时再反序列化，可以发现<code>a</code>的字段<code>b1</code>和<code>b2</code>被解析成了两个对象，原来的同一个引用没有体现出来。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;b1&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;BName&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;b2&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;BName&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>想要保证反序列化后仍然是同一引用，可以使用<code>@JsonIdentityInfo</code>注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JsonIdentityInfo(</span></span><br><span class="line"><span class="meta">    property = &quot;id&quot;,</span></span><br><span class="line"><span class="meta">    generator = ObjectIdGenerators.IntSequenceGenerator.class</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个注解有两个参数，<code>property=&quot;id&quot;</code>表示序列化这个类对象的时候添加一个<code>id</code>属性，<code>generator</code>参数表示新添加属性使用什么方式生成，这边使用整数顺序数生成器。<br>加上这个注解之后，序列化生成的 JSON 串如右。<br>我们发现<code>b2</code>变成了<code>b1</code>的 id，此时再反序列化<code>b1</code>和<code>b2</code>就会指向同一个对象了。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;b1&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;id&quot;</span> <span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;BName&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;b2&quot;</span> <span class="punctuation">:</span> <span class="number">1</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h6 id="循环引用"><a href="#循环引用" class="headerlink" title="循环引用"></a>循环引用</h6><p>循环引用就是 A 中有 B，B 中有 A。我们看个例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Parent</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="keyword">public</span> Child child;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Child</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="keyword">public</span> Parent parent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Child</span> <span class="variable">c</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Child</span>();</span><br><span class="line">c.name = <span class="string">&quot;son&quot;</span>;</span><br><span class="line"><span class="type">Parent</span> <span class="variable">p</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Parent</span>();</span><br><span class="line">p.name = <span class="string">&quot;father&quot;</span>;</span><br><span class="line">p.child = c;</span><br><span class="line">c.parent = p;</span><br></pre></td></tr></table></figure>
+<p>这种情况下，要是直接对<code>p</code>或<code>c</code>序列化，会陷入无限循环最终栈溢出报错。解决这个问题的方式是对两个互相引用的变量做标记，一个使用<code>@JsonManagedReference</code>标记为主引用，一个使用<code>@JsonBackReference</code>标记为反向引用。修改如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Parent</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="meta">@JsonManagedReference</span></span><br><span class="line">    <span class="keyword">public</span> Child child;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Child</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="meta">@JsonBackReference</span></span><br><span class="line">    <span class="keyword">public</span> Parent parent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对变量<code>p</code>序列化的结果：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;father&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;child&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;son&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>可以发现<code>child</code>里面的<code>parent</code>字段没有出现，因为我们解决了循环引用的问题。<br>这样就可以处理循环引用的情况，反序列化之后循环引用也会被设置好，不需要我们操心。</p>
+<h6 id="忽略未知字段"><a href="#忽略未知字段" class="headerlink" title="忽略未知字段"></a>忽略未知字段</h6><p>如果 JSON 串里存在一个字段但类中没有定义，这种情况在标准序列化里面会自动忽略，但在 Jackson 中会抛<code>UnrecognizedPropertyException</code>异常。如果我们也想忽略它怎么办呢？</p>
+<ul>
+<li>如果我们想对所有缺失的字段都进行忽略，可以配置<code>ObjectMapper</code>。</li>
+<li>如果我们只想对某个类里面的缺失字段进行忽略，其它类的缺失仍然抛异常，可以使用<code>@JsonIgnoreProperties</code>注解。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方式一，对 ObjectMapper 进行配置</span></span><br><span class="line">mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式二，添加 @JsonIgnoreProperties 注解</span></span><br><span class="line"><span class="comment">// 这种方式只会忽略 Student 类的缺失字段，其它类还是抛异常</span></span><br><span class="line"><span class="meta">@JsonIgnoreProperties(ignoreUnknown = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+注意，我们这边说的是 JSON 串里有多的字段，如果是 JSON 串少字段是不会报错的。</li>
+</ul>
+<h6 id="继承和多态"><a href="#继承和多态" class="headerlink" title="继承和多态"></a>继承和多态</h6><p>我们直接看一个案例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Shape</span> &#123; &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Circle</span> <span class="keyword">extends</span> <span class="title class_">Shape</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> r;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Circle</span><span class="params">()</span> &#123; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Circle</span><span class="params">(<span class="type">double</span> r)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.r = r;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Square</span> <span class="keyword">extends</span> <span class="title class_">Shape</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> l;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Square</span><span class="params">()</span> &#123; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Square</span><span class="params">(<span class="type">double</span> l)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.l = l;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ShapeManager</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;Shape&gt; shapes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ShapeManager</span> <span class="variable">manager</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ShapeManager</span>();</span><br><span class="line">manager.shapes = List.of(</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Circle</span>(<span class="number">6</span>),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Square</span>(<span class="number">8</span>)</span><br><span class="line">);</span><br><span class="line"><span class="type">ObjectMapper</span> <span class="variable">mapper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>();</span><br><span class="line">mapper.enable(SerializationFeature.INDENT_OUTPUT);</span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> mapper.writeValueAsString(manager);</span><br><span class="line">System.out.println(str);</span><br></pre></td></tr></table></figure>
+<p>输出结果如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;shapes&quot;</span> <span class="punctuation">:</span> <span class="punctuation">[</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;r&quot;</span> <span class="punctuation">:</span> <span class="number">6.0</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;l&quot;</span> <span class="punctuation">:</span> <span class="number">8.0</span></span><br><span class="line">  <span class="punctuation">&#125;</span> <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>主要有一个<code>Shape</code>类型的列表，里面实际装的可能是<code>Circle</code>，也可能是<code>Square</code>。序列化没有问题，使用<code>mapper.readValue(str, ShapeManager.class)</code>反序列化的时候出现了一个问题：<br>它会将<code>shapes</code>里面的元素全部看成<code>Shape</code>，但显然<code>Shape</code>类没有字段<code>r</code>和<code>l</code>，于是报错（当然你可以选择忽略缺失的字段，但这显然不合理）。我们现在想要反序列化的时候能自动识别<code>Circle</code>和<code>Square</code>，我们可以给<code>Shape</code>类加注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = &quot;type&quot;)</span></span><br><span class="line"><span class="meta">@JsonSubTypes(&#123;</span></span><br><span class="line"><span class="meta">    @JsonSubTypes.Type(value = Circle.class, name = &quot;Circle&quot;),</span></span><br><span class="line"><span class="meta">    @JsonSubTypes.Type(value = Square.class, name = &quot;Square&quot;)</span></span><br><span class="line"><span class="meta">&#125;)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Shape</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
+<p>加完注解之后，生成的 JSON 串如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;shapes&quot;</span> <span class="punctuation">:</span> <span class="punctuation">[</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;type&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;Circle&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;r&quot;</span> <span class="punctuation">:</span> <span class="number">6.0</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;type&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;Square&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;l&quot;</span> <span class="punctuation">:</span> <span class="number">8.0</span></span><br><span class="line">  <span class="punctuation">&#125;</span> <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到每个<code>Shape</code>类对象都多了一个属性<code>type</code>，反序列化的时候会根据这个<code>type</code>寻找对应的类进行构造。</p>
+<h6 id="修改字段名称"><a href="#修改字段名称" class="headerlink" title="修改字段名称"></a>修改字段名称</h6><p>目前为止序列化生成的字段名默认都是我们定义的变量名，我们想要修改生成的字段名。例如对于学生类来说，想要将生成的 JSON 字段名改成中文可以对相应的字段添加<code>@JsonProperty</code>注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">    <span class="meta">@JsonProperty(&quot;姓名&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="meta">@JsonProperty(&quot;年龄&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> age;</span><br><span class="line">    <span class="meta">@JsonProperty(&quot;分数&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> score;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;姓名&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;张三&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;年龄&quot;</span> <span class="punctuation">:</span> <span class="number">18</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;分数&quot;</span> <span class="punctuation">:</span> <span class="number">99.0</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>上面是序列化后对应的输出，字段名被我们修改成功，反序列化也没有问题。</p>
+<h6 id="格式化日期"><a href="#格式化日期" class="headerlink" title="格式化日期"></a>格式化日期</h6><p>默认情况下，会将日期格式化成一个长整数，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyDate</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;date&quot;</span> <span class="punctuation">:</span> <span class="number">1707188874700</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，日期对象被格式化成一个长整数。可读性比较差，我们想格式化成美观的格式可以：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyDate</span> &#123;</span><br><span class="line">    <span class="meta">@JsonFormat(pattern=&quot;yyyy-MM-dd HH:mm:ss&quot;, timezone=&quot;GMT+8&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>右边就是格式化后的输出，注意时区是需要加上的，不然会有偏差。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;date&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;2024-02-06 11:11:25&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h6 id="配置构造"><a href="#配置构造" class="headerlink" title="配置构造"></a>配置构造</h6><p>Jackson 反序列化默认会走类的无参构造，不存在无参构造会报错。如果我们想指定某个有参构造，可以借助<code>@JsonCreator</code>和<code>@JsonProperty </code>注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JsonCreator</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Student</span><span class="params">(</span></span><br><span class="line"><span class="params">        <span class="meta">@JsonProperty(&quot;name&quot;)</span> String name,</span></span><br><span class="line"><span class="params">        <span class="meta">@JsonProperty(&quot;age&quot;)</span> <span class="type">int</span> age,</span></span><br><span class="line"><span class="params">        <span class="meta">@JsonProperty(&quot;score&quot;)</span> <span class="type">double</span> score)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">    <span class="built_in">this</span>.score = score;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样就可以使用指定的构造而非默认无参构造。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag"># 后端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/05/21/Java-%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%EF%BC%8807%EF%BC%89/" rel="next" title="Java 基础系列（07）">
+                <i class="fa fa-chevron-left"></i> Java 基础系列（07）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/06/20/Java-%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%EF%BC%8809%EF%BC%89/" rel="prev" title="Java 基础系列（09）">
+                Java 基础系列（09） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/index.html">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E9%AB%98%E7%BA%A7%E6%8A%80%E6%9C%AF"><span class="nav-number">1.</span> <span class="nav-text">文件高级技术</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">常见文件类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E6%96%87%E4%BB%B6"><span class="nav-number">1.1.1.</span> <span class="nav-text">属性文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E5%8C%85"><span class="nav-number">1.1.2.</span> <span class="nav-text">压缩包</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#gzip"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">gzip</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#zip"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">zip</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E6%96%87%E4%BB%B6"><span class="nav-number">1.1.3.</span> <span class="nav-text">其它文件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">随机读写文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%A8%E6%B3%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E9%94%AE%E5%80%BC%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.2.2.</span> <span class="nav-text">实现键值对数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">设计</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E9%94%AE%E5%80%BC%E5%AF%B9"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">关于键值对</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">接口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%98%A0%E5%B0%84%E6%96%87%E4%BB%B6"><span class="nav-number">1.3.</span> <span class="nav-text">内存映射文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.3.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">1.3.2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%98%A0%E5%B0%84"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">映射</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#ByteBuffer"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">ByteBuffer</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#MappedByteBuffer"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">MappedByteBuffer</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">1.3.3.</span> <span class="nav-text">实现消息队列</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1-1"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">设计</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3-1"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">接口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0-1"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">1.4.</span> <span class="nav-text">标准序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%A8%E6%B3%95-1"><span class="nav-number">1.4.1.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-number">1.4.2.</span> <span class="nav-text">案例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.4.3.</span> <span class="nav-text">复杂对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9A%E5%88%B6%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">1.4.4.</span> <span class="nav-text">定制序列化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-number">1.4.5.</span> <span class="nav-text">序列化基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E5%9F%BA%E6%9C%AC%E9%80%BB%E8%BE%91"><span class="nav-number">1.4.5.1.</span> <span class="nav-text">序列化基本逻辑</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%9F%BA%E6%9C%AC%E9%80%BB%E8%BE%91"><span class="nav-number">1.4.5.2.</span> <span class="nav-text">反序列化基本逻辑</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%89%88%E6%9C%AC"><span class="nav-number">1.4.6.</span> <span class="nav-text">版本</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B1%80%E9%99%90%E6%80%A7"><span class="nav-number">1.4.7.</span> <span class="nav-text">局限性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jackson-%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">1.5.</span> <span class="nav-text">Jackson 序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#JSON"><span class="nav-number">1.5.1.</span> <span class="nav-text">JSON</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#XML"><span class="nav-number">1.5.2.</span> <span class="nav-text">XML</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MessagePack"><span class="nav-number">1.5.3.</span> <span class="nav-text">MessagePack</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.5.4.</span> <span class="nav-text">容器对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9A%E5%88%B6%E5%BA%8F%E5%88%97%E5%8C%96-1"><span class="nav-number">1.5.5.</span> <span class="nav-text">定制序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%BF%BD%E7%95%A5%E5%AD%97%E6%AE%B5"><span class="nav-number">1.5.5.1.</span> <span class="nav-text">忽略字段</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%90%8C%E4%B8%80%E5%BC%95%E7%94%A8"><span class="nav-number">1.5.5.2.</span> <span class="nav-text">同一引用</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E5%BC%95%E7%94%A8"><span class="nav-number">1.5.5.3.</span> <span class="nav-text">循环引用</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%BF%BD%E7%95%A5%E6%9C%AA%E7%9F%A5%E5%AD%97%E6%AE%B5"><span class="nav-number">1.5.5.4.</span> <span class="nav-text">忽略未知字段</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E5%92%8C%E5%A4%9A%E6%80%81"><span class="nav-number">1.5.5.5.</span> <span class="nav-text">继承和多态</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%AD%97%E6%AE%B5%E5%90%8D%E7%A7%B0"><span class="nav-number">1.5.5.6.</span> <span class="nav-text">修改字段名称</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%97%A5%E6%9C%9F"><span class="nav-number">1.5.5.7.</span> <span class="nav-text">格式化日期</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9E%84%E9%80%A0"><span class="nav-number">1.5.5.8.</span> <span class="nav-text">配置构造</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lu Yan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

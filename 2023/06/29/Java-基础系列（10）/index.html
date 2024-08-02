@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,后端," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="并发容器写时复制容器CopyOnWriteArrayList为了避免多线程同时读与写列表导致抛ConcurrentModificationException，CopyOnWriteArrayList就出现了。CopyOnWriteArrayList的用法和ArrayList基本是一样的，但它具备以下特性：  线程安全，支持多线程并发访问； 它以原子方式支持一些复合操作；  CopyOnWriteA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 基础系列（10）">
+<meta property="og:url" content="http://example.com/2023/06/29/Java-%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%EF%BC%8810%EF%BC%89/index.html">
+<meta property="og:site_name" content="Luyan&#39;s Bolg">
+<meta property="og:description" content="并发容器写时复制容器CopyOnWriteArrayList为了避免多线程同时读与写列表导致抛ConcurrentModificationException，CopyOnWriteArrayList就出现了。CopyOnWriteArrayList的用法和ArrayList基本是一样的，但它具备以下特性：  线程安全，支持多线程并发访问； 它以原子方式支持一些复合操作；  CopyOnWriteA">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/1561375/1710503016242-6a24184d-aa7a-44e5-a748-4d1821b9fc05.png#averageHue=%23f4f4f4&clientId=u64facbf8-ecf5-4&from=paste&height=255&id=u701a4910&originHeight=281&originWidth=866&originalType=binary&ratio=1.100000023841858&rotation=0&showTitle=false&size=72016&status=done&style=none&taskId=u20cb4a87-5950-4a85-b238-0ef2b2ff6e9&title=&width=787.2727102090508">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/1561375/1710503186832-68cfd842-8a50-46b3-a4ad-b3cdca360d6a.png#averageHue=%23f5f5f5&clientId=u64facbf8-ecf5-4&from=paste&height=272&id=uf465800a&originHeight=299&originWidth=873&originalType=binary&ratio=1.100000023841858&rotation=0&showTitle=false&size=81660&status=done&style=none&taskId=u8fdd089b-6388-429a-a136-e33f5125efa&title=&width=793.636346434759">
+<meta property="article:published_time" content="2023-06-29T04:12:03.000Z">
+<meta property="article:modified_time" content="2024-08-02T04:15:56.631Z">
+<meta property="article:author" content="Lu Yan">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="后端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2024/png/1561375/1710503016242-6a24184d-aa7a-44e5-a748-4d1821b9fc05.png#averageHue=%23f4f4f4&clientId=u64facbf8-ecf5-4&from=paste&height=255&id=u701a4910&originHeight=281&originWidth=866&originalType=binary&ratio=1.100000023841858&rotation=0&showTitle=false&size=72016&status=done&style=none&taskId=u20cb4a87-5950-4a85-b238-0ef2b2ff6e9&title=&width=787.2727102090508">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2023/06/29/Java-基础系列（10）/"/>
+
+
+
+
+
+  <title>Java 基础系列（10） | Luyan's Bolg</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Luyan's Bolg</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">不积跬步，无以至千里；不积小流，无以成江海。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/29/Java-%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%EF%BC%8810%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Luyan's Bolg">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java 基础系列（10）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-06-29T12:12:03+08:00">
+                2023-06-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
+                    <span itemprop="name">基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="并发容器"><a href="#并发容器" class="headerlink" title="并发容器"></a>并发容器</h3><h4 id="写时复制容器"><a href="#写时复制容器" class="headerlink" title="写时复制容器"></a>写时复制容器</h4><h5 id="CopyOnWriteArrayList"><a href="#CopyOnWriteArrayList" class="headerlink" title="CopyOnWriteArrayList"></a>CopyOnWriteArrayList</h5><p>为了避免多线程同时读与写列表导致抛<code>ConcurrentModificationException</code>，<code>CopyOnWriteArrayList</code>就出现了。<code>CopyOnWriteArrayList</code>的用法和<code>ArrayList</code>基本是一样的，但它具备以下特性：</p>
+<ul>
+<li>线程安全，支持多线程并发访问；</li>
+<li>它以原子方式支持一些复合操作；</li>
+</ul>
+<p><code>CopyOnWriteArrayList</code>支持以下两个原子复合操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不存在才添加，返回是否添加</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">addIfAbsent</span><span class="params">(E e)</span></span><br><span class="line"><span class="comment">// 批量添加 c 里面非重复元素，不存在才添加，返回添加的元素个数</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">addAllAbsent</span><span class="params">(Collection&lt;? extends E&gt; c)</span></span><br></pre></td></tr></table></figure>
+<p><code>CopyOnWriteArrayList</code>内部也是维护一个数组，每次修改的时候会创建一个新数组并在新数组里面做修改，修改完毕之后将新数组的引用赋值给<code>CopyOnWriteArrayList</code>里面的变量。读取元素的时候，先拿到内部数组的引用，然后访问对应的数组读取内容。<br>接下来我们看一下部分源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 内部维护的数组和锁</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">transient</span> Object[] array;</span><br><span class="line"><span class="keyword">transient</span> <span class="keyword">final</span> <span class="type">ReentrantLock</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantLock</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">final</span> Object[] getArray() &#123;</span><br><span class="line">    <span class="keyword">return</span> array;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">setArray</span><span class="params">(Object[] a)</span> &#123;</span><br><span class="line">    array = a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">CopyOnWriteArrayList</span><span class="params">()</span> &#123;</span><br><span class="line">    setArray(<span class="keyword">new</span> <span class="title class_">Object</span>[<span class="number">0</span>]);  <span class="comment">// 构造里默认创建一个空数组</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="type">ReentrantLock</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="built_in">this</span>.lock;</span><br><span class="line">    lock.lock();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Object[] elements = getArray();</span><br><span class="line">        <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> elements.length;</span><br><span class="line">        Object[] newElements = Arrays.copyOf(elements, len + <span class="number">1</span>);</span><br><span class="line">        newElements[len] = e;</span><br><span class="line">        setArray(newElements);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        lock.unlock();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">indexOf</span><span class="params">(Object o)</span> &#123;</span><br><span class="line">    Object[] elements = getArray();</span><br><span class="line">    <span class="keyword">return</span> indexOf(o, elements, <span class="number">0</span>, elements.length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码很简单，思路我们在上面已经说过了。<br>之前想要实现容器能并发访问，都是加锁。那么加了锁之后所有线程必须依次进行访问，时间成本太高了。现在这种思路每次修改都要复制一份数组，是不是对内存不太友好？是这样的！所以这个类适合<strong>读多写少</strong>的场景，它支持并发读，相比加锁一个个读效率提升很多。</p>
+<h5 id="CopyOnWriteArraySet"><a href="#CopyOnWriteArraySet" class="headerlink" title="CopyOnWriteArraySet"></a>CopyOnWriteArraySet</h5><p><code>CopyOnWriteArraySet</code>使用和普通的集合也是基本一样，但它是线程安全的。它的内部使用<code>CopyOnWriteArrayList</code>实现，我们看它的部分源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> CopyOnWriteArrayList&lt;E&gt; al;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">CopyOnWriteArraySet</span><span class="params">()</span> &#123;</span><br><span class="line">    al = <span class="keyword">new</span> <span class="title class_">CopyOnWriteArrayList</span>&lt;E&gt;();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> al.addIfAbsent(e);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">contains</span><span class="params">(Object o)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> al.contains(o);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也正是因为它使用<code>CopyOnWriteArrayList</code>实现，所以相较于其它的<code>Set</code>，它的性能较低、不适用于元素个数较多的场景。<br>总结下来，<code>CopyOnWriteArrayList</code>和<code>CopyOnWriteArraySet</code>都适用于读远多于写、集合不太大的场景。</p>
+<h4 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h4><h5 id="并发安全"><a href="#并发安全" class="headerlink" title="并发安全"></a>并发安全</h5><p>之前介绍的<code>HashMap</code>并不是并发安全的，尤其在并发更新的情况下，<code>HashMap</code>会陷入死循环并占满 CPU。想要并发使用，我们可以使用之前介绍过的<code>Collections.synchronizedMap</code>，这是一个同步容器，但它存在以下问题：</p>
+<ul>
+<li>每个方法的调用都需要同步，效率低下；</li>
+<li>对于迭代和复合操作，需要我们手动加锁，比较麻烦。</li>
+</ul>
+<p>在这种情况下，<code>ConcurrentHashMap</code>就出现了。</p>
+<h5 id="原子复合操作"><a href="#原子复合操作" class="headerlink" title="原子复合操作"></a>原子复合操作</h5><p><code>ConcurrentHashMap</code>不仅实现了<code>Map</code>接口，它还实现了<code>ConcurrentMap</code>接口。接口中定义了一些条件更新操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ConcurrentMap</span>&lt;K, V&gt; <span class="keyword">extends</span> <span class="title class_">Map</span>&lt;K, V&gt; &#123;</span><br><span class="line">    <span class="comment">// 条件更新，key 存在时将其值设为 value 并返回 oldValue；否则返回 null</span></span><br><span class="line">    V <span class="title function_">putIfAbsent</span><span class="params">(K key, V value)</span>;</span><br><span class="line">    <span class="comment">// 条件删除，key 存在且其值是 value 则删除此键值对并返回 true；否则返回 false</span></span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">remove</span><span class="params">(Object key, Object value)</span>;</span><br><span class="line">    <span class="comment">// 条件替换，key 存在且其值为 value 则将值修改为 newValue 并返回 true；否则返回 false</span></span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">replace</span><span class="params">(K key, V oldValue, V newValue)</span>;</span><br><span class="line">    <span class="comment">// 条件替换，key 存在时将其值替换成 value 并返回 oldValue；否则返回 null</span></span><br><span class="line">    V <span class="title function_">replace</span><span class="params">(K key, V value)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>ConcurrentHashMap</code>对这些方法的实现都是原子的，所以不需要我们手动加锁。</p>
+<h5 id="基本机制"><a href="#基本机制" class="headerlink" title="基本机制"></a>基本机制</h5><p><code>ConcurrentHashMap</code>是如何实现的高并发？简单讲有两点：</p>
+<ol>
+<li>分段锁；</li>
+<li>读不需要加锁；</li>
+</ol>
+<p>同步容器使用<code>synchronized</code>，所有方法都要竞争一个锁。而<code>ConcurrentHashMap</code>采用分段锁技术，将数据分为多个段，每个段都有独立的锁，每个段也相当于一个独立的哈希表。无论是保存键值对还是根据键进行查找，都先根据键的哈希值映射到段，再在段对应的哈希表里进行操作。<br>采用分段锁可以大大提高并发度，多个段之间可以并行读写。默认情况下有 16 个段，这个数字可以通过构造传递：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">ConcurrentHashMap</span><span class="params">(<span class="type">int</span> initialCapacity, <span class="type">float</span> loadFactor, <span class="type">int</span> concurrencyLevel)</span></span><br></pre></td></tr></table></figure>
+<p>这边的<code>concurrencyLevel</code>表示预估的并行线程数，<code>ConcurrentHashMap</code>可以将其转换成 2 的整次幂。例如 14 会被转成 16, 25 会被转成 32。对每个段的数据进行读写时：</p>
+<ul>
+<li>写操作需要获取锁，不能并行；</li>
+<li>读操作可以并行；</li>
+<li>读写可以并行，即写的同时可以读；</li>
+</ul>
+<p>这些特性使得<code>ConcurrentHashMap</code>的并行度远远高于同步容器。</p>
+<h5 id="弱一致性"><a href="#弱一致性" class="headerlink" title="弱一致性"></a>弱一致性</h5><p>上面说<code>ConcurrentHashMap</code>允许读和写并行执行，那么如果在读的过程中进行修改会出现什么现象？<br>答：<code>ConcurrentHashMap</code>迭代器创建完毕之后，会按照哈希表的结构依次遍历每一个元素。若在遍历的过程中修改哈希表，此时有两种情况：</p>
+<ul>
+<li>修改的部分已经遍历过了，迭代器无法反映出本次修改；</li>
+<li>相反，修改的部分还没遍历到，那么新修改的部分会被遍历到；</li>
+</ul>
+<p>这就是弱一致性，下面看一个示例代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">    Map&lt;String, String&gt; map = <span class="keyword">new</span> <span class="title class_">ConcurrentHashMap</span>&lt;&gt;();</span><br><span class="line">    map.put(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;abstract&quot;</span>);</span><br><span class="line">    map.put(<span class="string">&quot;b&quot;</span>, <span class="string">&quot;basic&quot;</span>);</span><br><span class="line">    <span class="type">Thread</span> <span class="variable">t</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (Map.Entry&lt;String, String&gt; entry : map.entrySet()) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;&#125;</span><br><span class="line">                System.out.println(entry.getKey() + <span class="string">&quot;--&quot;</span> + entry.getValue());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    t.start();</span><br><span class="line">    Thread.sleep(<span class="number">1000</span>);  <span class="comment">// 确保线程启动成功</span></span><br><span class="line">    map.put(<span class="string">&quot;c&quot;</span>, <span class="string">&quot;call&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">    test();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个代码会创建一个<code>ConcurrentHashMap</code>对象，并存储两个键值对。然后启动线程遍历所有键值对，遍历过程中往里面又添加了一个键值对。若是执行<code>map.put(&quot;c&quot;, &quot;call&quot;)</code>，则三个键值对都能遍历到；相对的，若是执行<code>map.put(&quot;0&quot;, &quot;call&quot;)</code>，则新添加的键值对是遍历不到的。<br>此外 Java 中没有并发版本的<code>HashSet</code>，但我们可以通过<code>Collections.newSetFromMap</code>方法基于<code>ConcurrentHashMap</code>创建一个。</p>
+<h4 id="基于跳表的-Map-与-Set"><a href="#基于跳表的-Map-与-Set" class="headerlink" title="基于跳表的 Map 与 Set"></a>基于跳表的 Map 与 Set</h4><p>上面说的<code>ConcurrentHashMap</code>是不排序的并发<code>Map</code>，想要排序可以使用<code>ConcurrentSkipListMap</code>。基于<code>ConcurrentSkipListMap</code>的有序集合是<code>ConcurrentSkipListSet</code>，因此我们主要讲讲<code>ConcurrentSkipListMap</code>。<br><code>ConcurrentSkipListMap</code>是基于跳跃表实现的，跳跃表是一种数据结构，回头看。<code>ConcurrentSkipListMap</code>有如下特点：</p>
+<ul>
+<li>不适用锁，所有操作都是不阻塞的；所有操作都可以并行，包括写与写之间也可以并行。</li>
+<li>与<code>ConcurrentHashMap</code>类似，<code>ConcurrentSkipListMap</code>也是弱一致性的。</li>
+<li><code>ConcurrentSkipListMap</code>也实现了<code>ConcurrentMap</code>接口。</li>
+<li><code>ConcurrentSkipListMap</code>是按键有序的，默认会调用 key 的<code>compareTo</code>方法。我们也可以在创建<code>ConcurrentSkipListMap</code>的时候传一个<code>Comparator</code>进去。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">ConcurrentSkipListMap</span>&lt;&gt;(</span><br><span class="line">        Collections.reverseOrder());</span><br><span class="line">map.put(<span class="string">&quot;b&quot;</span>, <span class="number">2</span>);</span><br><span class="line">map.put(<span class="string">&quot;c&quot;</span>, <span class="number">3</span>);</span><br><span class="line">map.put(<span class="string">&quot;a&quot;</span>, <span class="number">1</span>);</span><br><span class="line">System.out.println(map);</span><br></pre></td></tr></table></figure>
+这段代码会输出<code>&#123;c=3, b=2, a=1&#125;</code>，可见我们传递进去的逆序排序器是有效的。<br>我们接下来看看跳跃表，跳表是基于链表的，只是在链表的基础上加上了多层索引结构。跳表主要是为了解决链表查找效率低的问题，假设容器中包含如下有序元素：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">9</span>, <span class="number">12</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">21</span>, <span class="number">25</span>, <span class="number">26</span></span><br></pre></td></tr></table></figure>
+<code>ConcurrentSkipListMap</code>会构造出如下的跳表结构：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/1561375/1710503016242-6a24184d-aa7a-44e5-a748-4d1821b9fc05.png#averageHue=%23f4f4f4&clientId=u64facbf8-ecf5-4&from=paste&height=255&id=u701a4910&originHeight=281&originWidth=866&originalType=binary&ratio=1.100000023841858&rotation=0&showTitle=false&size=72016&status=done&style=none&taskId=u20cb4a87-5950-4a85-b238-0ef2b2ff6e9&title=&width=787.2727102090508" alt="image.png"><br>构造出这样的有序跳表之后，想要从中查找元素就可以使用类似二分查找的策略了。例如我想查找 8 和 19 可以按照下面图的策略找：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/1561375/1710503186832-68cfd842-8a50-46b3-a4ad-b3cdca360d6a.png#averageHue=%23f5f5f5&clientId=u64facbf8-ecf5-4&from=paste&height=272&id=uf465800a&originHeight=299&originWidth=873&originalType=binary&ratio=1.100000023841858&rotation=0&showTitle=false&size=81660&status=done&style=none&taskId=u8fdd089b-6388-429a-a136-e33f5125efa&title=&width=793.636346434759" alt="image.png"><br>具体跳表的实现还是很复杂的，我们不过度展开，只是简单看其原理。</li>
+</ul>
+<h4 id="并发队列-TODO"><a href="#并发队列-TODO" class="headerlink" title="并发队列 TODO"></a>并发队列 TODO</h4><p>&#x2F;&#x2F; TODO</p>
+<h3 id="动态与函数式编程"><a href="#动态与函数式编程" class="headerlink" title="动态与函数式编程"></a>动态与函数式编程</h3><h4 id="反射-TODO"><a href="#反射-TODO" class="headerlink" title="反射 TODO"></a>反射 TODO</h4><h4 id="注解-TODO"><a href="#注解-TODO" class="headerlink" title="注解 TODO"></a>注解 TODO</h4><h4 id="动态代理-TODO"><a href="#动态代理-TODO" class="headerlink" title="动态代理 TODO"></a>动态代理 TODO</h4><h4 id="类加载机制-TODO"><a href="#类加载机制-TODO" class="headerlink" title="类加载机制 TODO"></a>类加载机制 TODO</h4><h4 id="正则表达式-TODO"><a href="#正则表达式-TODO" class="headerlink" title="正则表达式 TODO"></a>正则表达式 TODO</h4><h4 id="函数式编程"><a href="#函数式编程" class="headerlink" title="函数式编程"></a>函数式编程</h4><h5 id="Lambda-表达式"><a href="#Lambda-表达式" class="headerlink" title="Lambda 表达式"></a>Lambda 表达式</h5><h6 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h6><p>目前学到的很多 API 需要一个接口参数，例如<code>Arrays</code>类中的排序方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="keyword">void</span> <span class="title function_">sort</span><span class="params">(T[] a, Comparator&lt;? <span class="built_in">super</span> T&gt; c)</span></span><br></pre></td></tr></table></figure>
+<p>这边的第二个参数需要一个比较器进去，那我们真的需要一个接口对象吗？实际上，这边需要的只是一种排序规则，说白了就是一段代码块或者说需要的只是一个函数。但 Java 不支持传递方法或函数，因此设计成接口，而我们调用方需要实现这个接口并传给功能提供方。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Person[] persons = <span class="keyword">new</span> <span class="title class_">Person</span>[]&#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;小明&quot;</span>, <span class="number">18</span>),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;小红&quot;</span>, <span class="number">16</span>),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;小华&quot;</span>, <span class="number">21</span>),</span><br><span class="line">&#125;;</span><br><span class="line">Arrays.sort(persons, <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;Person&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Person o1, Person o2)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> o1.getAge() - o2.getAge();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>在这个例子里面，真正起作用的只有一行代码，但我们写出来却有很多。为了简化书写，Lambda 就出现了。</p>
+<h6 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h6><p>我们使用 Lambda 表达式实现上面的案例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(persons, (Person o1, Person o2) -&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> o1.getAge() - o2.getAge();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>可以看到代码简洁了许多，我们这边没有实现接口而是直接使用 Lambda 表达式代替。形式上，Lambda 表达式由以下部分构成：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(参数列表) -&gt; &#123;</span><br><span class="line">    <span class="comment">// 方法体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>形似匿名函数的定义。<br>在此基础上，Lambda 表达式还有以下简化：</p>
+<ul>
+<li>参数列表的参数类型可以省略；</li>
+<li>如果只有一个参数，可以省略小括号；</li>
+<li>如果方法体内部只有一条返回语句，可以省略大括号；<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(persons, (o1, o2) -&gt; o1.getAge() - o2.getAge());</span><br></pre></td></tr></table></figure>
+<strong>注意：</strong>只有存在一个接口方法的接口可以使用 Lambda 表达式替代，毕竟方法多了就不知道对应哪一个接口方法了。此外，我们在 Lambda 表达式里面也可以使用外部的变量，但要求该变量实际是<code>final</code>的（可以不定义成常量，但不得修改）。</li>
+</ul>
+<h6 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h6><p>函数式接口特指仅含有一个抽象方法的接口，我们上面能被 Lambda 表达式替换的接口就是函数式接口。我们可以直接把 Lambda 表达式赋值给一个函数式接口，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Person&gt; cmp = (o1, o2) -&gt; o1.getAge() - o2.getAge();</span><br></pre></td></tr></table></figure>
+<p>Java 提供了很多函数式接口，整理如下：</p>
+<table>
+<thead>
+<tr>
+<th><strong>接口</strong></th>
+<th><strong>方法</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Predicate&lt;T&gt;</code></td>
+<td><code>boolean test(T t)</code></td>
+<td>测试是否满足条件</td>
+</tr>
+<tr>
+<td><code>Function&lt;T, R&gt;</code></td>
+<td><code>R apply(T t)</code></td>
+<td>类型<code>T</code>转<code>R</code></td>
+</tr>
+<tr>
+<td><code>UnaryOperator&lt;T&gt;</code></td>
+<td><code>T apply(T t)</code></td>
+<td>同类型转换</td>
+</tr>
+<tr>
+<td><code>Consumer&lt;T&gt;</code></td>
+<td><code>void accept(T t)</code></td>
+<td>单个对象的消费者</td>
+</tr>
+<tr>
+<td><code>Supplier&lt;T&gt;</code></td>
+<td><code>T get()</code></td>
+<td>工厂方法</td>
+</tr>
+<tr>
+<td><code>BiFunction&lt;T, U, R&gt;</code></td>
+<td><code>R apply(T t, U u)</code></td>
+<td>接受两个参数，转为<code>R</code></td>
+</tr>
+<tr>
+<td><code>BinaryOperator&lt;T&gt;</code></td>
+<td><code>T apply(T t, T u)</code></td>
+<td>接受两个<code>T</code>，转为<code>T</code></td>
+</tr>
+<tr>
+<td><code>BiConsumer&lt;T, U&gt;</code></td>
+<td><code>void accept(T t, U u)</code></td>
+<td>两个对象的消费者</td>
+</tr>
+<tr>
+<td><code>BiPredicate&lt;T, U&gt;</code></td>
+<td><code>boolean test(T t, U u)</code></td>
+<td>测试是否满足条件</td>
+</tr>
+</tbody></table>
+<p>这些函数式接口被广泛应用于函数式数据处理<code>Stream</code>相关类中，例如：</p>
+<ul>
+<li>对列表中每个元素做变换可以使用<code>Function</code>接口；</li>
+<li>对列表里每一个元素做某种操作可以使用<code>Consumer</code>接口；</li>
+<li>实现一个过滤器对列表元素做筛选可以使用<code>Predicate</code>接口；</li>
+</ul>
+<p>举个例子，我们现在有一个<code>Person</code>列表，想要处理获取所有人姓名的列表：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;String&gt; <span class="title function_">map</span><span class="params">(List&lt;Person&gt; personList, </span></span><br><span class="line"><span class="params">                               Function&lt;Person, String&gt; converter)</span> &#123;</span><br><span class="line">    List&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (Person person : personList) &#123;</span><br><span class="line">        list.add(converter.apply(person));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    List&lt;Person&gt; personList = List.of(</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;小明&quot;</span>, <span class="number">18</span>),</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;小红&quot;</span>, <span class="number">16</span>),</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;小华&quot;</span>, <span class="number">21</span>)</span><br><span class="line">    );</span><br><span class="line">    List&lt;String&gt; names = map(personList, person -&gt; person.getName());</span><br><span class="line">    System.out.println(names);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们自己实现了一个<code>map</code>方法，这个方法接受一个列表以及映射规则，返回给我们映射结果。使用的时候，我们直接使用 Lambda 表达式替换接口实现，这是非常好用且优雅的。</p>
+<h6 id="方法引用"><a href="#方法引用" class="headerlink" title="方法引用"></a>方法引用</h6><p>Lambda 经常被用于调用某个对象的方法，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; names = map(personList, person -&gt; person.getName());</span><br></pre></td></tr></table></figure>
+<p>这个例子里，Lambda 表达式主要就是调用<code>person</code>对象的<code>getName</code>方法。对于这种没有复杂逻辑，仅仅是方法调用的情形，Lambda 表达式可以进一步简化：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; names = map(personList, Person::getName);</span><br></pre></td></tr></table></figure>
+<p><code>Person::getName</code>是 Java8 新语法，称为方法引用。它由<code>::</code>隔开，前面是类名或实例变量名，后面是方法名。</p>
+<ol>
+<li><p>静态方法只能使用类名进行引用，假设<code>Person</code>类有<code>getCollege</code>静态方法，则有以下等价关系：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Person 类的静态方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getCollege</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Jiangsu&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以下两种写法等价，引用静态方法的等价 Lambda 是无参的</span></span><br><span class="line">Supplier&lt;String&gt; s = Person::getCollege;</span><br><span class="line">Supplier&lt;String&gt; s = () -&gt; Person.getCollege();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用类名引用实例方法，Lambda 表达式第一个参数默认是实例对象，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下两句等价，转换成 Lambda 会有一个实例对象作为参数</span></span><br><span class="line">Function&lt;Person, String&gt; f = Person::getName;</span><br><span class="line">Function&lt;Person, String&gt; f = p -&gt; p.getName();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Lambda 第一个参数仍然是实例对象，第二个参数是被调函数需要的参数</span></span><br><span class="line"><span class="comment">// 最多就两个参数，第一个是实例对象，因此引用的方法最多可以携带一个参数</span></span><br><span class="line">BiConsumer&lt;Person, String&gt; f = Person::setName;</span><br><span class="line">BiConsumer&lt;Person, String&gt; f2 = (p, name) -&gt; p.setName(name);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用实例对象引用实例方法表示所有操作都使用当前对象的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;xxx&quot;</span>, <span class="number">18</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用实例变量引用方法，会直接调用该实例对象的方法</span></span><br><span class="line">Supplier&lt;String&gt; f = person::getName;</span><br><span class="line">Supplier&lt;String&gt; f2 = () -&gt; person.getName();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Consumer 的泛型类型是参数的类型</span></span><br><span class="line">Consumer&lt;String&gt; f = person::setName;</span><br><span class="line">Consumer&lt;String&gt; f2 = (name) -&gt; person.setName(name);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用类名引用构造方法，这种情况下没有默认参数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 可以看到所有的参数都作为构造方法的参数</span></span><br><span class="line">BiFunction&lt;String, Integer, Person&gt; f = Person::<span class="keyword">new</span>;</span><br><span class="line">BiFunction&lt;String, Integer, Person&gt; f = (name, age) -&gt; <span class="keyword">new</span> <span class="title class_">Person</span>(name, age);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h6 id="函数复合"><a href="#函数复合" class="headerlink" title="函数复合"></a>函数复合</h6><p>使用 Lambda 表达式相当于我们可以把方法当做参数进行传递，函数复合指的是一个方法参数与返回值都是一段代码。例如在对数组进行排序的时候，我们往往使用 Lambda 表达式替换<code>Comparator</code>对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(persons, (p1, p2) -&gt; p1.getAge() - p2.getAge());</span><br></pre></td></tr></table></figure>
+<p>对于这种写法我觉得可读性不是很好，对此<code>Comparator</code>类提供了<code>comparing</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T, U <span class="keyword">extends</span> <span class="title class_">Comparable</span>&lt;? <span class="built_in">super</span> U&gt;&gt; Comparator&lt;T&gt; <span class="title function_">comparing</span><span class="params">(</span></span><br><span class="line"><span class="params">    Function&lt;? <span class="built_in">super</span> T, ? extends U&gt; keyExtractor)</span> </span><br><span class="line">&#123;</span><br><span class="line">    Objects.requireNonNull(keyExtractor);</span><br><span class="line">    <span class="keyword">return</span> (Comparator&lt;T&gt; &amp; Serializable)</span><br><span class="line">        (c1, c2) -&gt; keyExtractor.apply(c1).compareTo(keyExtractor.apply(c2));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码看起来很复杂，实际上是把类型<code>T</code>先转成<code>U</code>，然后进行比较。基于此按照年龄进行排序可以写出如下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(persons, Comparator.comparing(Person::getAge));</span><br></pre></td></tr></table></figure>
+<p>除了<code>comparing</code>方法，还有以下两个较为常用的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 逆序比较器</span></span><br><span class="line"><span class="keyword">default</span> Comparator&lt;T&gt; <span class="title function_">reversed</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> Collections.reverseOrder(<span class="built_in">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 二次比较</span></span><br><span class="line"><span class="keyword">default</span> &lt;U <span class="keyword">extends</span> <span class="title class_">Comparable</span>&lt;? <span class="built_in">super</span> U&gt;&gt; Comparator&lt;T&gt; <span class="title function_">thenComparing</span><span class="params">(</span></span><br><span class="line"><span class="params">        Function&lt;? <span class="built_in">super</span> T, ? extends U&gt; keyExtractor)</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> thenComparing(comparing(keyExtractor));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 二次比较的具体实现</span></span><br><span class="line"><span class="keyword">default</span> Comparator&lt;T&gt; <span class="title function_">thenComparing</span><span class="params">(Comparator&lt;? <span class="built_in">super</span> T&gt; other)</span> &#123;</span><br><span class="line">    Objects.requireNonNull(other);</span><br><span class="line">    <span class="keyword">return</span> (Comparator&lt;T&gt; &amp; Serializable) (c1, c2) -&gt; &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> compare(c1, c2);</span><br><span class="line">        <span class="keyword">return</span> (res != <span class="number">0</span>) ? res : other.compare(c1, c2);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有了这些方法，我们想按照年龄降序排序、年龄一样按照姓名排序可以实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Person&gt; comparator = Comparator.comparing(Person::getAge)</span><br><span class="line">        .reversed()</span><br><span class="line">        .thenComparing(Person::getName);</span><br><span class="line">Arrays.sort(persons, comparator);</span><br></pre></td></tr></table></figure>
+<p>最后再说一个平常用的较多的方法，<code>Function</code>类中有一个<code>andThen</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">default</span> &lt;V&gt; Function&lt;T, V&gt; <span class="title function_">andThen</span><span class="params">(Function&lt;? <span class="built_in">super</span> R, ? extends V&gt; after)</span> &#123;</span><br><span class="line">    Objects.requireNonNull(after);</span><br><span class="line">    <span class="keyword">return</span> (T t) -&gt; after.apply(apply(t));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个方法能返回一个映射器，首先实现<code>T -&gt; R</code>的映射，然后实现<code>R -&gt; V</code>的映射。例如我有一个<code>Person</code>列表，我想获取所有人姓名的首字母可以写出如下映射器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Function&lt;Person, String&gt; f = ((Function&lt;Person, String&gt;) Person::getName</span><br><span class="line">                             .andThen(name -&gt; name.substring(<span class="number">0</span>, <span class="number">1</span>));</span><br></pre></td></tr></table></figure>
+<h5 id="函数式数据处理-基本使用"><a href="#函数式数据处理-基本使用" class="headerlink" title="函数式数据处理-基本使用"></a>函数式数据处理-基本使用</h5><p>Java8 引入了<code>Stream</code>接口即流式操作，典型的场景有对列表元素做过滤、转换等。下面我们看其基本使用。<code>Collection</code>接口中提供了两个获取<code>Stream</code>的默认方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 顺序流，单线程</span></span><br><span class="line"><span class="keyword">default</span> Stream&lt;E&gt; <span class="title function_">stream</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> StreamSupport.stream(spliterator(), <span class="literal">false</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 并行流，背后可能是多线程</span></span><br><span class="line"><span class="keyword">default</span> Stream&lt;E&gt; <span class="title function_">parallelStream</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> StreamSupport.stream(spliterator(), <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>举个例子，我有一个人员列表，我想打印所有年纪 ≥ 18 的人员姓名，可以如下实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">personList.stream()</span><br><span class="line">        .filter(person -&gt; person.getAge() &gt;= <span class="number">18</span>)  <span class="comment">// 过滤</span></span><br><span class="line">        .map(Person::getName)  <span class="comment">// 转化</span></span><br><span class="line">        .forEach(System.out::println);  <span class="comment">// 挨个操作</span></span><br></pre></td></tr></table></figure>
+<p>简直不要太优雅。但这相当于遍历了列表很多次吧？会不会影响效率？其实并不会，因为<code>filter</code>与<code>map</code>是中间操作，只会构建流水线并不会触发执行。而<code>forEach</code>是终端操作，遇到时会触发执行。</p>
+<h6 id="中间操作"><a href="#中间操作" class="headerlink" title="中间操作"></a>中间操作</h6><p>流的中间操作主要包含<code>distinct、sorted、skip、limit、peek、mapToLong、mapToInt、mapToDouble、flatMap</code>等。下面我们一一看下。</p>
+<ol>
+<li><p><code>distinct</code>可以对流中的元素去重；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; res = personList.stream()</span><br><span class="line">        .map(Person::getAge)</span><br><span class="line">        .distinct()</span><br><span class="line">        .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+<p>这个案例会统计所有人员不同的年纪，<code>distinct</code>操作内部会使用<code>HashSet</code>进行去重。<br><code>collect</code>是一个终端操作，它能够将流水线上的元素收集起来，这边将元素收集到一个列表中。</p>
+</li>
+<li><p><code>sorted</code>可以对流中的元素排序，具体有两种形式；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;T&gt; <span class="title function_">sorted</span><span class="params">()</span>  <span class="comment">// 要求流水线上的元素实现 Comparable 接口</span></span><br><span class="line"><span class="comment">// 自定义比较器</span></span><br><span class="line">Stream&lt;T&gt; <span class="title function_">sorted</span><span class="params">(Comparator&lt;? <span class="built_in">super</span> T&gt; comparator)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Person&gt; res = personList.stream()</span><br><span class="line">        .sorted(Comparator.comparing(Person::getAge)</span><br><span class="line">                .reversed()</span><br><span class="line">                .thenComparing(Person::getName)</span><br><span class="line">        ).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>skip</code>可以跳过指定数目元素，<code>limit</code>可以限制流水线上最大元素数目；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Person&gt; res = personList.stream()</span><br><span class="line">        .skip(<span class="number">2</span>).limit(<span class="number">1</span>)  <span class="comment">// 跳过 2 个元素后，取 1 个元素，后面的元素忽略</span></span><br><span class="line">        .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>dropWhile</code>满足条件一直跳过，<code>takeWhile</code>满足条件一会获取；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Person&gt; personList = List.of(</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;小明&quot;</span>, <span class="number">18</span>),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;小红&quot;</span>, <span class="number">16</span>),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;小华&quot;</span>, <span class="number">18</span>),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;小刚&quot;</span>, <span class="number">22</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 满足条件一直获取，直到遇到一个不满足条件的，将其及之后的元素忽略</span></span><br><span class="line"><span class="comment">// [小明]</span></span><br><span class="line">List&lt;Person&gt; res = personList.stream()</span><br><span class="line">        .takeWhile(person -&gt; person.getAge() &gt; <span class="number">17</span>)</span><br><span class="line">        .map(Person::getName)</span><br><span class="line">        .collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 满足条件一直跳过，直到遇到一个不满足条件的，将其及之后的元素全部通过</span></span><br><span class="line"><span class="comment">// [小红, 小华, 小刚]</span></span><br><span class="line">List&lt;Person&gt; res = personList.stream()</span><br><span class="line">        .dropWhile(person -&gt; person.getAge() &gt; <span class="number">17</span>)</span><br><span class="line">        .map(Person::getName)</span><br><span class="line">        .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>peek</code>可以对所有元素做某种操作，一般用来查看流中元素；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Person&gt; res = personList.stream()</span><br><span class="line">        .peek(System.out::println)</span><br><span class="line">        .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>mapToLong/mapToInt/mapToDouble</code>将元素映射到基本数据类型；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对所有人年龄求和</span></span><br><span class="line"><span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> personList.stream()</span><br><span class="line">        .mapToInt(Person::getAge).sum();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>flatMap</code>可以将每个元素转换成一个流，然后所有元素流合并成一个流；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; strings = List.of(<span class="string">&quot;abc def&quot;</span>, <span class="string">&quot;hij&quot;</span>, <span class="string">&quot;klm nop&quot;</span>);</span><br><span class="line">strings.stream().flatMap(</span><br><span class="line">    s -&gt; Arrays.stream(s.split(<span class="string">&quot; &quot;</span>))  <span class="comment">// 按空格分割并返回为流，最终会把所有单词流转到下一步</span></span><br><span class="line">).forEach(System.out::println);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h6 id="终端操作"><a href="#终端操作" class="headerlink" title="终端操作"></a>终端操作</h6><p>中间操作并不会触发执行，返回的也是<code>Stream</code>。终端操作能够触发执行，并且能够返回有用的值。常用的终端操作除了<code>collect</code>外还有<code>max、min、count、allMatch、anyMatch、noneMatch、findFirst、findAny、forEach、toArray、reduce</code>等。</p>
+<ol>
+<li><p><code>max/min</code>可以获取流中的最大元素或最小元素；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法的签名如下，传进去一个比较器用于比较大小</span></span><br><span class="line"><span class="comment">// 返回值类型不是 T 而是 Optional&lt;T&gt;，这表示返回的结果可能为 null</span></span><br><span class="line">Optional&lt;T&gt; <span class="title function_">max</span><span class="params">(Comparator&lt;? <span class="built_in">super</span> T&gt; comparator)</span></span><br><span class="line">Optional&lt;T&gt; <span class="title function_">min</span><span class="params">(Comparator&lt;? <span class="built_in">super</span> T&gt; comparator)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Optional 类有以下方法 */</span></span><br><span class="line"><span class="comment">// value 不为 null 时返回 true</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isPresent</span><span class="params">()</span></span><br><span class="line"><span class="comment">// 返回实际值，若 value 为 null 则抛 NoSuchElementException</span></span><br><span class="line"><span class="keyword">public</span> T <span class="title function_">get</span><span class="params">()</span></span><br><span class="line"><span class="comment">// value 不为 null 就返回 value 否则返回 other</span></span><br><span class="line"><span class="keyword">public</span> T <span class="title function_">orElse</span><span class="params">(T other)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个 value 为 null 的 Optional 对象</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span>&lt;T&gt; Optional&lt;T&gt; <span class="title function_">empty</span><span class="params">()</span></span><br><span class="line"><span class="comment">// 使用参数创建一个 Optional 对象，传入的 value 不能为 null</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; Optional&lt;T&gt; <span class="title function_">of</span><span class="params">(T value)</span></span><br><span class="line"><span class="comment">// 使用参数创建一个 Optional 对象，传入的 value 可以为 null</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; Optional&lt;T&gt; <span class="title function_">ofNullable</span><span class="params">(T value)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 直接使用 get 获取值</span></span><br><span class="line"><span class="type">Person</span> <span class="variable">p</span> <span class="operator">=</span> personList.stream().max(Comparator.comparing(Person::getAge)).get();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>count</code>可以统计流水线上元素个数；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 统计成年人的数目，返回的是 long</span></span><br><span class="line"><span class="type">long</span> <span class="variable">cnt</span> <span class="operator">=</span> personList.stream().filter(p -&gt; p.getAge() &gt;= <span class="number">18</span>).count();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Match</code></p>
+<ol>
+<li><code>allMatch</code>流水线所有元素都满足条件返回<code>true</code>，否则返回<code>false</code>；</li>
+<li><code>anyMatch</code>流水线有元素满足条件返回<code>true</code>，否则返回<code>false</code>；</li>
+<li><code>noneMatch</code>流水线没有元素满足条件返回<code>true</code>，否则返回<code>false</code>；<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">boolean</span> <span class="variable">b</span> <span class="operator">=</span> personList.stream().allMatch(p -&gt; p.getAge() &gt;= <span class="number">18</span>);</span><br><span class="line"><span class="type">boolean</span> <span class="variable">b</span> <span class="operator">=</span> personList.stream().anyMatch(p -&gt; p.getAge() &gt;= <span class="number">18</span>);</span><br><span class="line"><span class="type">boolean</span> <span class="variable">b</span> <span class="operator">=</span> personList.stream().noneMatch(p -&gt; p.getAge() &gt;= <span class="number">18</span>);</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p><code>findFirst/findAny</code>可以从流中查找元素；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;T&gt; <span class="title function_">findFirst</span><span class="params">()</span>  <span class="comment">// 返回流中第一个元素（即使在并行流中也保证能获取第一个）</span></span><br><span class="line">Optional&lt;T&gt; <span class="title function_">findAny</span><span class="params">()</span>  <span class="comment">// 返回流中第一个元素（不保证顺序，并行流中谁先到就返回谁）</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>forEach/forEachOrdered</code>可以遍历每个元素并执行某操作；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 并行流下顺序不能保证</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">forEach</span><span class="params">(Consumer&lt;? <span class="built_in">super</span> T&gt; action)</span></span><br><span class="line"><span class="comment">// 可以保证并行流下也是有序的</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">forEachOrdered</span><span class="params">(Consumer&lt;? <span class="built_in">super</span> T&gt; action)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>toArray</code>可以使用流元素构建数组；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object[] toArray()  <span class="comment">// 默认无参方法返回一个 Object 数组</span></span><br><span class="line">&lt;A&gt; A[] toArray(IntFunction&lt;A[]&gt; generator)  <span class="comment">// 指定数组类型</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object[] objects = personList.stream().toArray();</span><br><span class="line"><span class="comment">// 没什么神秘的，传递数组的构造方法进去即可</span></span><br><span class="line">Person[] arr = personList.stream().toArray(Person[]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>reduce</code>可以折叠流，即按照某个原则将流元素折叠成一个值；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;T&gt; <span class="title function_">reduce</span><span class="params">(BinaryOperator&lt;T&gt; accumulator)</span>;</span><br><span class="line">T <span class="title function_">reduce</span><span class="params">(T identity, BinaryOperator&lt;T&gt; accumulator)</span>;</span><br><span class="line">&lt;U&gt; U <span class="title function_">reduce</span><span class="params">(U identity, BiFunction&lt;U, ? <span class="built_in">super</span> T, U&gt; accumulator, BinaryOperator&lt;U&gt; combiner)</span>;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li><p>第一个<code>reduce</code>函数，会先使用流中前两个元素得出运算结果，后面每次使用运算结果与下一个元素运算得出结果，以此类推最终得出一个结果；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取年纪最大的人员，Lambda 两个参数都是元素类型</span></span><br><span class="line"><span class="type">Person</span> <span class="variable">p</span> <span class="operator">=</span> personList.stream().reduce(</span><br><span class="line">    (a, b) -&gt; a.getAge() &gt; b.getAge() ? a : b</span><br><span class="line">).get();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第二个<code>reduce</code>函数，多一个<code>identity</code>参数表示初值。一开始会使用初值与第一个元素进行计算，后面按照上面的流程；</p>
+</li>
+<li><p>上面两种元素类型是<code>T</code>返回类型也是<code>T</code>，使用起来不是很方便。最后一个<code>reduce</code>函数是一个通用的函数，不要求返回类型一致。第三个参数在并行流下有用，表示多个线程的处理结果如何合并；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对所有人年纪求和</span></span><br><span class="line"><span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> personList.stream().reduce(<span class="number">0</span>, (sum, p) -&gt; sum += p.getAge(), Integer::sum);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h6 id="构建流"><a href="#构建流" class="headerlink" title="构建流"></a>构建流</h6><p>目前我们都是使用<code>Collection</code>接口提供的方法获取流，除此之外还有一些其它方式获取流。例如在<code>Arrays</code>类中就提供了如下两个方法获取流：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将数组包装成流对象</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; Stream&lt;T&gt; <span class="title function_">stream</span><span class="params">(T[] array)</span></span><br><span class="line"><span class="comment">// 将数组的一部分包装成流对象，顾头不顾尾</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; Stream&lt;T&gt; <span class="title function_">stream</span><span class="params">(T[] array, <span class="type">int</span> startInclusive, <span class="type">int</span> endExclusive)</span></span><br></pre></td></tr></table></figure>
+<p><code>Stream</code>类本身就有一些静态方法获取流：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回一个空流</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span>&lt;T&gt; Stream&lt;T&gt; <span class="title function_">empty</span><span class="params">()</span></span><br><span class="line"><span class="comment">// 返回只包含一个元素 t 的流</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span>&lt;T&gt; Stream&lt;T&gt; <span class="title function_">of</span><span class="params">(T t)</span></span><br><span class="line"><span class="comment">// 使用传进来的元素构建流</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span>&lt;T&gt; Stream&lt;T&gt; <span class="title function_">of</span><span class="params">(T... values)</span></span><br><span class="line"><span class="comment">// 通过 Supplier（工厂）生成流，数目无限</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span>&lt;T&gt; Stream&lt;T&gt; <span class="title function_">generate</span><span class="params">(Supplier&lt;T&gt; s)</span></span><br><span class="line"><span class="comment">// 生成无限流，元素为 seed, f(seed), f(f(seed))...</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span>&lt;T&gt; Stream&lt;T&gt; <span class="title function_">iterate</span><span class="params">(<span class="keyword">final</span> T seed, <span class="keyword">final</span> UnaryOperator&lt;T&gt; f)</span></span><br></pre></td></tr></table></figure>
+<p>一些案例有：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成并输出 5 个随机数</span></span><br><span class="line">Stream.generate(Math::random).limit(<span class="number">5</span>).forEach(System.out::println);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出前 5 个奇数</span></span><br><span class="line">Stream.iterate(<span class="number">1</span>, i -&gt; i + <span class="number">2</span>).limit(<span class="number">5</span>).forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+<h5 id="函数式数据处理-收集器-TODO"><a href="#函数式数据处理-收集器-TODO" class="headerlink" title="函数式数据处理-收集器 TODO"></a>函数式数据处理-收集器 TODO</h5><h5 id="组合式异步编程-TODO"><a href="#组合式异步编程-TODO" class="headerlink" title="组合式异步编程 TODO"></a>组合式异步编程 TODO</h5><h5 id="Java8-的日期和时间-TODO"><a href="#Java8-的日期和时间-TODO" class="headerlink" title="Java8 的日期和时间 TODO"></a>Java8 的日期和时间 TODO</h5>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag"># 后端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/06/20/Java-%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%EF%BC%8809%EF%BC%89/" rel="next" title="Java 基础系列（09）">
+                <i class="fa fa-chevron-left"></i> Java 基础系列（09）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/07/03/Spring/" rel="prev" title="Spring">
+                Spring <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/index.html">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">并发容器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%99%E6%97%B6%E5%A4%8D%E5%88%B6%E5%AE%B9%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">写时复制容器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CopyOnWriteArrayList"><span class="nav-number">1.1.1.</span> <span class="nav-text">CopyOnWriteArrayList</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CopyOnWriteArraySet"><span class="nav-number">1.1.2.</span> <span class="nav-text">CopyOnWriteArraySet</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ConcurrentHashMap"><span class="nav-number">1.2.</span> <span class="nav-text">ConcurrentHashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8"><span class="nav-number">1.2.1.</span> <span class="nav-text">并发安全</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8E%9F%E5%AD%90%E5%A4%8D%E5%90%88%E6%93%8D%E4%BD%9C"><span class="nav-number">1.2.2.</span> <span class="nav-text">原子复合操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%9C%BA%E5%88%B6"><span class="nav-number">1.2.3.</span> <span class="nav-text">基本机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BC%B1%E4%B8%80%E8%87%B4%E6%80%A7"><span class="nav-number">1.2.4.</span> <span class="nav-text">弱一致性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E8%B7%B3%E8%A1%A8%E7%9A%84-Map-%E4%B8%8E-Set"><span class="nav-number">1.3.</span> <span class="nav-text">基于跳表的 Map 与 Set</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97-TODO"><span class="nav-number">1.4.</span> <span class="nav-text">并发队列 TODO</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E4%B8%8E%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">动态与函数式编程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E5%B0%84-TODO"><span class="nav-number">2.1.</span> <span class="nav-text">反射 TODO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3-TODO"><span class="nav-number">2.2.</span> <span class="nav-text">注解 TODO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86-TODO"><span class="nav-number">2.3.</span> <span class="nav-text">动态代理 TODO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6-TODO"><span class="nav-number">2.4.</span> <span class="nav-text">类加载机制 TODO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-TODO"><span class="nav-number">2.5.</span> <span class="nav-text">正则表达式 TODO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B"><span class="nav-number">2.6.</span> <span class="nav-text">函数式编程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Lambda-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.6.1.</span> <span class="nav-text">Lambda 表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">2.6.1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">2.6.1.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.6.1.3.</span> <span class="nav-text">函数式接口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8"><span class="nav-number">2.6.1.4.</span> <span class="nav-text">方法引用</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%A4%8D%E5%90%88"><span class="nav-number">2.6.1.5.</span> <span class="nav-text">函数复合</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">2.6.2.</span> <span class="nav-text">函数式数据处理-基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%AD%E9%97%B4%E6%93%8D%E4%BD%9C"><span class="nav-number">2.6.2.1.</span> <span class="nav-text">中间操作</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%BB%88%E7%AB%AF%E6%93%8D%E4%BD%9C"><span class="nav-number">2.6.2.2.</span> <span class="nav-text">终端操作</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E6%B5%81"><span class="nav-number">2.6.2.3.</span> <span class="nav-text">构建流</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E6%94%B6%E9%9B%86%E5%99%A8-TODO"><span class="nav-number">2.6.3.</span> <span class="nav-text">函数式数据处理-收集器 TODO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E5%BC%8F%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B-TODO"><span class="nav-number">2.6.4.</span> <span class="nav-text">组合式异步编程 TODO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Java8-%E7%9A%84%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4-TODO"><span class="nav-number">2.6.5.</span> <span class="nav-text">Java8 的日期和时间 TODO</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lu Yan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
